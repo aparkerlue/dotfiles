@@ -1,0 +1,13 @@
+#!/bin/sh
+# -*- coding: utf-8; mode: shell-script; -*-
+
+if lsusb -d feed:6060 >/dev/null; then
+    # `tokyo60.xkb` maps meta to the super key.
+    # xkbcomp -w 0 -I$HOME/.config/xkb ~/.config/xkb/keymap/tokyo60.xkb $DISPLAY
+    echo "info: skipping custom XKB configuration for Tokyo60 keyboard" >&2
+elif [ -f "/sys/devices/virtual/dmi/id/product_name" ] \
+         && [ "$(cat /sys/devices/virtual/dmi/id/product_name)" = "XPS 13 9380" ]; then
+    # `xps13.xkb` emulates a UNIX keyboard on the Dell XPS 13 built-in
+    # keyboard.
+    xkbcomp -w 0 -I$HOME/.config/xkb ~/.config/xkb/keymap/xps13.xkb $DISPLAY
+fi

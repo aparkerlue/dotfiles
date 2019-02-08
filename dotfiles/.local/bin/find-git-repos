@@ -1,0 +1,30 @@
+#!/bin/sh
+
+usage_string="usage: $(basename $0) <origin-host> [<dir>]"
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    echo "${usage_string}"
+    echo "Find Git repositories with origin <origin-host>."
+    exit
+fi
+if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+    echo "${usage_string}" >&2
+    exit 1
+fi
+
+hostname="$1"
+if [ "$#" -eq 2 ]; then
+    start_dir="$2"
+else
+    start_dir="."
+fi
+
+find "$start_dir" -name .git -type d -prune 2>/dev/null \
+    | sed 's#/.git$##' \
+    | while read d; do
+    cd "$d"
+    origin=$(git remote get-url origin 2>/dev/null)
+    if [ "$?" -eq 0 ] && echo "$origin" | grep -E "\b${hostname}\b" >/dev/null; then
+        echo "$d"
+    fi
+    cd - >/dev/null
+done

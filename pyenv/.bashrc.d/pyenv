@@ -1,0 +1,16 @@
+# -*- mode: shell-script; coding: utf-8; -*-
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+
+pyenv-disable() {
+    PATH=$(echo "$PATH" | sed -E "s#(^|:)$HOME/.pyenv/shims($|:)##")
+}
+
+pyenv-enable() {
+    if ! echo "$PATH" | grep -Eq "(^|:)$HOME/.pyenv/shims($|:)"; then
+        PATH="$HOME/.pyenv/shims:$PATH"
+    fi
+}

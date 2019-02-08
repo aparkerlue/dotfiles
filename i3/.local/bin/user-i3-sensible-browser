@@ -1,0 +1,17 @@
+#!/bin/sh
+for browser in "$BROWSER" \
+                   firefox \
+                   chromium \
+                   chromium-browser \
+                   google-chrome \
+                   lynx \
+                   d2m \
+                   elinks \
+               ;
+do
+    if command -v "$browser" > /dev/null 2>&1; then
+        exec "$browser" "$@"
+    fi
+done
+
+i3-nagbar -m 'user-i3-sensible-browser could not find a browser emulator. Please install one.'

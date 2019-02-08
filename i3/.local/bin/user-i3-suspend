@@ -1,0 +1,4 @@
+#!/bin/sh
+
+i3lock -c 333333 -f \
+    && systemctl suspend -i

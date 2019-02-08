@@ -1,0 +1,40 @@
+partial modifier_keys
+xkb_symbols "super_as_meta" {
+    replace key <LWIN> {         [          Meta_L ] };
+    replace key <RWIN> {         [          Meta_R ] };
+};
+
+partial modifier_keys
+xkb_symbols "swap_caps_lctrl_grave" {
+    replace key <LCTL> {         [           grave,      asciitilde ] };
+    replace key <CAPS> {         [       Control_L ] };
+    modifier_map Control { Control_L };
+};
+
+partial modifier_keys
+xkb_symbols "swap_lalt_lsuper_lmeta" {
+    replace key <LALT> {         [          Meta_L ] };
+    replace key <LWIN> {         [           Alt_L ] };
+    modifier_map Mod1 { Alt_L };
+    modifier_map Mod5 { Meta_L };
+};
+
+partial modifier_keys
+xkb_symbols "swap_ralt_rctrl_rmeta" {
+    replace key <RALT> {         [          Meta_R ] };
+    replace key <RCTL> {         [           Alt_R ] };
+    modifier_map Mod1 { Alt_R };
+    modifier_map Mod5 { Meta_R };
+};
+
+partial alphanumeric_keys
+xkb_symbols "swap_esc_grave" {
+    replace key  <ESC> {         [           grave,      asciitilde ] };
+    replace key <TLDE> {         [          Escape ] };
+};
+
+partial alphanumeric_keys
+xkb_symbols "swap_bksp_bksl" {
+    replace key <BKSP> {         [       backslash,             bar ] };
+    replace key <BKSL> {         [       BackSpace,       BackSpace ] };
+};

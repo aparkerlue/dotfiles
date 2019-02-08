@@ -1,0 +1,26 @@
+xkb_keycodes "xps13" {
+    // | Keycode | Default label | Target label |
+    // |---------+---------------+--------------|
+    // |       9 | <ESC>         | <TLDE>       |
+    // |      49 | <TLDE>        | <ESC>        |
+    // |      22 | <BKSP>        | <BKSL>       |
+    // |      51 | <BKSL>        | <BKSP>       |
+    // |      66 | <CAPS>        | <LCTL>       |
+    // |      37 | <LCTL>        | <CAPS>       |
+    // |      64 | <LALT>        | <LWIN>       |
+    // |     133 | <LWIN>        | <LALT>       |
+    // |     134 | <RWIN>        | <RCTL>       |
+    // |     108 | <RALT>        | <RWIN>       |
+    // |     105 | <RCTL>        | <RALT>       |
+     <ESC> = 49;
+    <TLDE> = 9;
+    <BKSP> = 51;
+    <BKSL> = 22;
+    <CAPS> = 37;
+    <LCTL> = 66;
+    <LALT> = 133;
+    <LWIN> = 64;
+    <RWIN> = 108;
+    <RALT> = 105;
+    <RCTL> = 134;
+};

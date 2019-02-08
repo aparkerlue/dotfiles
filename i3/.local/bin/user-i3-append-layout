@@ -1,0 +1,49 @@
+#!/bin/sh
+
+paste() {
+    # Join positional parameters with spaces in between.
+    x=""
+    for s do
+        x="${x:+$x }$s"
+    done
+    echo "$x"
+}
+
+open_terminals_urxvt() {
+    urxvt -e htop &
+    urxvt -e cmus &
+    urxvt -title tmux -e sh -c "$(
+        paste \
+            "tmux ls 2>/dev/null | grep '^0:' >/dev/null && tmux a -t 0" \
+            "|| tmux"
+    )" &
+}
+
+open_terminals_gnome_terminal() {
+    gnome-terminal -- htop
+    gnome-terminal -- cmus
+    gnome-terminal -- sh -c \
+                   "tmux ls 2>/dev/null | grep '^0:' >/dev/null && tmux a -t 0 || tmux"
+}
+
+open_terminals_konsole() {
+    konsole -e htop &
+    konsole -e cmus &
+    if tmux ls 2>/dev/null | grep '^0:' >/dev/null; then
+        konsole -e tmux a -t 0 &
+    else
+        konsole -e tmux &
+    fi
+}
+
+i3-msg 'workspace 1; append_layout ~/.config/i3/workspace-1.json'
+xclock -norender &
+if [ "$TERMINAL" = "konsole" ]; then
+    open_terminals_konsole
+elif [ "$TERMINAL" = "gnome-terminal" ]; then
+    open_terminals_gnome_terminal
+else
+    open_terminals_urxvt
+fi
+emacs &
+sensible-browser &

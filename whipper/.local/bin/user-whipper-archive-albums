@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# -*- mode: Shell-script; coding: utf-8; -*-
+
+print_help() {
+    cat <<EOF
+usage: $(basename "$0") [-h] <album-dir>...
+EOF
+}
+
+OPTSTRING=":hv"
+flag_verbose=
+while getopts $OPTSTRING name; do
+    case $name in
+        h)
+            print_help
+            exit
+            ;;
+        v)
+            flag_verbose=1
+            ;;
+        *)
+            echo "error: Unrecognized option -$OPTARG" >&2
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+if [[ $# -eq 0 ]]; then
+    print_help >&2
+    exit 1
+fi
+
+for s in "$@"; do
+    album=$(basename "$s")
+    if [[ -e $musicdir/$album ]]; then
+        echo "error: \`${album}' exists in ${musicdir}." >&2
+        exit 1
+    fi
+done
+
+musicdir="/srv/music"
+for s in "$@"; do
+    album=$(basename "$s")
+    if [[ -e $musicdir/$album ]]; then
+        echo "warning: \`${musicdir}/${album}' already exists. Skipping..." >&2
+        continue
+    fi
+    mv "$s" "$musicdir"
+
+    dest="${musicdir}/${album}"
+    chgrp -R users "$dest"
+    find "$dest" -type d | while read t; do chmod 2555 "$t"; done
+    find "$dest" -type f | while read t; do chmod 0444 "$t"; done
+    if [[ -n $flag_verbose ]]; then
+        echo "New album: $dest"
+    fi
+done

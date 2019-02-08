@@ -1,0 +1,180 @@
+// vim:ts=4:sw=4:et
+{
+    // splitv split container with 2 children
+    // "border": "normal",
+    // "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 0.7,
+    "type": "con",
+    "nodes": [
+        {
+            // splith split container with 3 children
+            // "border": "normal",
+            // "floating": "auto_off",
+            "layout": "splith",
+            "percent": 0.17,
+            "type": "con",
+            "nodes": [
+                {
+                    // "border": "normal",
+                    // "current_border_width": 2,
+                    // "floating": "auto_off",
+                    // "geometry": {
+                    //    "height": 164,
+                    //    "width": 164,
+                    //    "x": 0,
+                    //    "y": 0
+                    // },
+                    "name": "xclock",
+                    "percent": 0.12,
+                    "swallows": [
+                        {
+                            "class": "^XClock$",
+                            "instance": "^xclock$",
+                            "title": "^xclock$"
+                        }
+                    ],
+                    "type": "con"
+                },
+                {
+                    // "border": "normal",
+                    // "current_border_width": 2,
+                    // "floating": "auto_off",
+                    // "geometry": {
+                    //    "height": 268,
+                    //    "width": 512,
+                    //    "x": 0,
+                    //    "y": 20
+                    // },
+                    "name": "htop",
+                    "percent": 0.44,
+                    "swallows": [
+                        {
+                            "class": "^konsole$|^Gnome-terminal$|^URxvt$",
+                            "instance": "^konsole$|^gnome-terminal|^urxvt$",
+                            "title": "^[[:alnum:]]+ : htop — Konsole$|^Terminal$|^htop$"
+                        }
+                    ],
+                    "type": "con"
+                },
+                {
+                    // "border": "normal",
+                    // "current_border_width": 2,
+                    // "floating": "auto_off",
+                    // "geometry": {
+                    //    "height": 268,
+                    //    "width": 512,
+                    //    "x": 512,
+                    //    "y": 20
+                    // },
+                    "name": "cmus",
+                    "percent": 0.44,
+                    "swallows": [
+                        {
+                            "class": "^konsole$|^Gnome-terminal$|^URxvt$",
+                            "instance": "^konsole$|^gnome-terminal|^urxvt$",
+                            "title": "^[[:alnum:]]+ : cmus — Konsole$|^cmus|^cmus"
+                        }
+                    ],
+                    "type": "con"
+                }
+            ]
+        },
+        {
+            // tabbed split container with 1 children
+            // "border": "normal",
+            // "floating": "auto_off",
+            "layout": "tabbed",
+            "percent": 0.83,
+            "type": "con",
+            "nodes": [
+                {
+                    // "border": "normal",
+                    // "current_border_width": 2,
+                    // "floating": "auto_off",
+                    // "geometry": {
+                    //    "height": 1420,
+                    //    "width": 1536,
+                    //    "x": 1024,
+                    //    "y": 20
+                    // },
+                    "name": "Chromium",
+                    "percent": null,
+                    "swallows": [
+                        {
+                            "class": "^Chromium(-browser)?$",
+                            "instance": "^chromium(-browser)?$",
+                            // "title": "^Chromium$",
+                            "window_role": "^browser$"
+                        }
+                    ],
+                    "type": "con"
+                }
+            ]
+        }
+    ]
+}
+
+{
+    // splitv split container with 1 children
+    // "border": "normal",
+    // "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 0.3,
+    "type": "con",
+    "nodes": [
+        {
+            // tabbed split container with 2 children
+            // "border": "normal",
+            // "floating": "auto_off",
+            "layout": "tabbed",
+            "percent": 1,
+            "type": "con",
+            "nodes": [
+                {
+                    // "border": "normal",
+                    // "current_border_width": 2,
+                    // "floating": "auto_off",
+                    // "geometry": {
+                    //    "height": 1132,
+                    //    "width": 1024,
+                    //    "x": 0,
+                    //    "y": 308
+                    // },
+                    "name": "tmux",
+                    "percent": 0.5,
+                    "swallows": [
+                        {
+                            "class": "^konsole$|^Gnome-terminal$|^URxvt$",
+                            "instance": "^konsole$|^gnome-terminal|^urxvt$",
+                            "title": "^[[:alnum:]]+ : tmux(: client)? — Konsole$|^Terminal$|^tmux$"
+                        }
+                    ],
+                    "type": "con"
+                },
+                {
+                    // "border": "normal",
+                    // "current_border_width": 2,
+                    // "floating": "auto_off",
+                    // "geometry": {
+                    //    "height": 1132,
+                    //    "width": 1024,
+                    //    "x": 0,
+                    //    "y": 308
+                    // },
+                    "name": "emacs",
+                    "percent": 0.5,
+                    "swallows": [
+                        {
+                            "class": "^Emacs$",
+                            "instance": "^emacs$"
+                            // "title": "^emacs$"
+                        }
+                    ],
+                    "type": "con"
+                }
+            ]
+        }
+    ]
+}
+

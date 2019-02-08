@@ -1,0 +1,10 @@
+\x auto
+
+\timing on
+
+\set COMP_KEYWORD_CASE upper
+\set PROMPT1 '(%n@%M:%>) %`date +%H:%M:%S` [%/]\n=%x%# '
+\set PROMPT2 '-%x%# '
+
+\pset null NULL
+\pset numericlocale

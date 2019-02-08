@@ -1,0 +1,8 @@
+# -*- mode: Shell-script; coding: utf-8; -*-
+alias whipper="docker run \
+                      -ti \
+                      --rm \
+                      --device=/dev/cdrom \
+                      -v ~/.config/whipper:/home/worker/.config/whipper \
+                      -v ${HOME}/Documents/Whipper:/output \
+                      whipperteam/whipper"

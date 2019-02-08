@@ -1,0 +1,11 @@
+#!/bin/sh
+# -*- mode: Shell-script; coding: utf-8; -*-
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $(basename $0) [ppt]" >&2
+    exit 1
+else
+    ppt="$1"
+fi
+
+i3-msg resize set width "$ppt" ppt

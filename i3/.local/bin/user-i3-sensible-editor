@@ -1,0 +1,18 @@
+#!/bin/sh
+if pgrep --exact emacs >/dev/null; then
+    editor="emacsclient"
+    if command -v "$editor" >/dev/null; then
+        exec "$editor" -cn "$@"
+    else
+        echo "error: $editor not found" >&2
+        exit 1
+    fi
+else
+    editor="emacs"
+    if command -v "$editor" >/dev/null; then
+        exec "$editor" "$@" &
+    else
+        echo "error: $editor not found" >&2
+        exit 1
+    fi
+fi
