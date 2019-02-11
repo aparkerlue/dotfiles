@@ -14,4 +14,5 @@ Install [rcm](https://github.com/thoughtbot/rcm).
 
 ```bash
 DOTFILES_DIRS="$HOME/src/dotfiles $HOME/Dropbox/dotfiles"
+EXCLUDES="LICENSE README.md"
 ```
