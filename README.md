@@ -13,6 +13,6 @@ Install [rcm](https://github.com/thoughtbot/rcm).
 `~/.rcrc`:
 
 ```bash
-DOTFILES_DIRS="$HOME/src/dotfiles $HOME/Dropbox/dotfiles"
+DOTFILES_DIRS="$HOME/.dotfiles $HOME/Dropbox/dotfiles"
 EXCLUDES="LICENSE README.md"
 ```
