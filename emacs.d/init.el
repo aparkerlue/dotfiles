@@ -85,6 +85,9 @@
 ;; Hi Lock mode
 (global-hi-lock-mode 1)
 
+(require 'vc)
+(setq vc-follow-symlinks t)
+
 ;; https://www.emacswiki.org/emacs/UnicodeFonts
 (require 'unicode-fonts)
 (setq unicode-fonts-block-font-mapping
