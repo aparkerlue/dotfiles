@@ -28,8 +28,8 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-if [ -d ~/profile.d ]; then
-  for i in ~/profile.d/*.sh; do
+if [ -d ~/.profile.d ]; then
+  for i in ~/.profile.d/*.sh; do
     if [ -r $i ]; then
       . $i
     fi
