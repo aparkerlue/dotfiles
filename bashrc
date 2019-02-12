@@ -1,11 +1,5 @@
 # -*- mode: shell-script; coding: utf-8; -*-
 
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-    *) return;;
-esac
-
 refresh-gpg-agent() {
     export GPG_TTY="$(tty)"
     export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
