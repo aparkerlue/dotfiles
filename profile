@@ -34,6 +34,13 @@ if [ -d ~/.profile.d ]; then
       . $i
     fi
   done
+  if [ -n "$BASH_VERSION" ]; then
+      for i in ~/.profile.d/*.bash; do
+          if [ -r $i ]; then
+              . $i
+          fi
+      done
+  fi
   unset i
 fi
 
