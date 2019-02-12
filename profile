@@ -1,4 +1,4 @@
-# -*- mode: sh; coding: utf-8; -*-
+# -*- mode: Shell-script; coding: utf-8; -*-
 
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
@@ -90,7 +90,9 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
-    export -f pyenv
+    if [ -n "$BASH_VERSION" ]; then
+        export -f pyenv
+    fi
 fi
 
 # pyenv-virtualenv - git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
@@ -101,7 +103,9 @@ fi
 # virtualenvwrapper - pip install virtualenvwrapper
 export WORKON_HOME="$HOME/.virtualenvs"
 export PROJECT_HOME="$HOME/src"
-source "$(pyenv which virtualenvwrapper.sh)"
+if [ -n "$BASH_VERSION" ]; then
+    source "$(pyenv which virtualenvwrapper.sh)"
+fi
 
 # npm
 npm_packages=$HOME/.npm-packages
