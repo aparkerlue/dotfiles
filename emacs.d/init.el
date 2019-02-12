@@ -1,3 +1,5 @@
+;; -*- coding: utf-8; mode: Emacs-Lisp; -*-
+
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -28,7 +30,10 @@
  '(package-selected-packages
    (quote
     (dracula-theme helm-dash json-reformat ess neotree eterm-256color unicode-fonts exec-path-from-shell emamux password-store json-mode svg-clock csv-mode super-save chronos mmm-jinja2 mmm-mode which-key direnv pipenv htmlize dotenv-mode org realgud ledger-mode ace-window yaml-mode sql-indent markdown-mode xclip magit elpy)))
- '(safe-local-variable-values (quote ((org-confirm-babel-evaluate)))))
+ '(safe-local-variable-values
+   (quote
+    ((make-backup-files)
+     (org-confirm-babel-evaluate)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -45,11 +50,29 @@
 (if (boundp 'x-alt-keysym)
     (setq x-alt-keysym 'meta))
 
+; Backup and auto-save files
+(let ((backup-dir (concat user-emacs-directory "backup"))
+      (auto-save-dir (concat user-emacs-directory "auto-save")))
+  (dolist (dir (list backup-dir auto-save-dir))
+    (when (not (file-directory-p dir))
+      (make-directory dir t)))
+(setq
+ backup-directory-alist `(("." . ,backup-dir))
+ auto-save-file-name-transforms `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" ,(concat auto-save-dir "/\\2") t)
+                                  ("\\([^/]*/\\)*\\([^/]*\\)" ,(concat auto-save-dir "/\\2") t)
+                                  )
+ )
+)
+(setq
+ make-backup-files t
+ auto-save-default t
+ )
+
+; General
 (setq
  inhibit-splash-screen t
- make-backup-files nil
- sentence-end-double-space nil
  visible-bell t
+ sentence-end-double-space nil
  )
 (setq-default
  case-fold-search t
