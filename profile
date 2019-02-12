@@ -12,10 +12,10 @@ umask 0002
 
 # Initialize the search path
 if [ -x /usr/libexec/path_helper ]; then
-    declare -x PATH=""
+    export PATH=""
     eval $(/usr/libexec/path_helper -s)
 else
-    declare -x PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 fi
 
 # set PATH so it includes user's private bin if it exists
