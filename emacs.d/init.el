@@ -215,13 +215,11 @@
 ;;  realgud:trepan3k-command-name "pipenv run trepan3k"
 ;;  )
 
-;; Easy PG
+;; EasyPG
 (require 'epa-file)
 (setq
- epa-armor t
- epa-file-name-regexp "\\.\\(gpg\\|asc\\)\\(~\\|\\.~[0-9]+~\\)?\\'"
+ epa-armor nil
  )
-(epa-file-name-regexp-update)
 
 ;; Emacs pinentry server
 (setq epa-pinentry-mode 'loopback)
@@ -450,9 +448,9 @@
 (put 'set-goal-column 'disabled nil)
 
 ;; Registers
-(set-register ?j (cons 'file (expand-file-name "Journal/Journal.org.asc" org-directory)))
-(set-register ?n (cons 'file (expand-file-name "Notes/Notes.org.asc" org-directory)))
-(set-register ?p (cons 'file (expand-file-name "Passphrases/Passphrases.org.asc" org-directory)))
+(set-register ?j (cons 'file (expand-file-name "Journal/Journal.org.gpg" org-directory)))
+(set-register ?n (cons 'file (expand-file-name "Notes/Notes.org.gpg" org-directory)))
+(set-register ?p (cons 'file (expand-file-name "Passphrases/Passphrases.org.gpg" org-directory)))
 (set-register ?g (cons 'file (expand-file-name "general.org" org-directory)))
 (set-register ?r (cons 'file (expand-file-name "reading.org" org-directory)))
 
