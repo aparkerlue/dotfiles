@@ -16,3 +16,12 @@ Install [rcm](https://github.com/thoughtbot/rcm).
 DOTFILES_DIRS="$HOME/.dotfiles $HOME/Dropbox/dotfiles"
 EXCLUDES="LICENSE README.md"
 ```
+
+
+## Helper functions ##
+
+```sh
+rcupdate() {
+    git -C ~/.dotfiles pull &>/dev/null
+}
+```
