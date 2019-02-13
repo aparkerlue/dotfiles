@@ -248,8 +248,9 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ;; Org-mode
+(require 'org)
 (require 'ox-md nil t)
-(add-to-list 'org-modules 'org-tempo)
+(require 'org-tempo)
 (setq
  org-directory (cond
                 ((file-directory-p "~/Dropbox (Personal)") "~/Dropbox (Personal)/org")
