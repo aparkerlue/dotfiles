@@ -1,5 +1,66 @@
 ;; -*- coding: utf-8; mode: Emacs-Lisp; -*-
 
+(message (current-time-string))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
+ '(package-selected-packages
+   (quote
+    (
+     ace-window
+     chronos
+     csv-mode
+     direnv
+     dotenv-mode
+     dracula-theme
+     elpy
+     emamux
+     ess
+     eterm-256color
+     exec-path-from-shell
+     helm-dash
+     htmlize
+     json-mode
+     json-reformat
+     ledger-mode
+     magit
+     markdown-mode
+     mmm-jinja2
+     mmm-mode
+     neotree
+     org
+     password-store
+     pinentry
+     pipenv
+     realgud
+     sql-indent
+     super-save
+     svg-clock
+     unicode-fonts
+     web-mode
+     which-key
+     xclip
+     yaml-mode
+     )
+    )
+   )
+ '(safe-local-variable-values
+   (quote
+    ((make-backup-files)
+     (org-confirm-babel-evaluate)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -18,33 +79,12 @@
 			      )
  )
 (package-initialize)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
- '(package-selected-packages
-   (quote
-    (dracula-theme helm-dash json-reformat ess neotree eterm-256color unicode-fonts exec-path-from-shell emamux password-store json-mode svg-clock csv-mode super-save chronos mmm-jinja2 mmm-mode which-key direnv pipenv htmlize dotenv-mode org realgud ledger-mode ace-window yaml-mode sql-indent markdown-mode xclip magit elpy)))
- '(safe-local-variable-values
-   (quote
-    ((make-backup-files)
-     (org-confirm-babel-evaluate)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(unless package-archive-contents
+  (package-refresh-contents))
+(package-install-selected-packages)
 
 (global-display-line-numbers-mode)
 (find-file-existing user-init-file)
-
-(message (current-time-string))
 
 ; X11: Interpret alt key-press as meta
 (if (boundp 'x-alt-keysym)
