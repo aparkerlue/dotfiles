@@ -103,7 +103,7 @@ fi
 # virtualenvwrapper - pip install virtualenvwrapper
 export WORKON_HOME="$HOME/.virtualenvs"
 export PROJECT_HOME="$HOME/src"
-if [ -n "$BASH_VERSION" ]; then
+if [ -n "$BASH_VERSION" ] && pyenv which virtualenvwrapper.sh &>/dev/null; then
     source "$(pyenv which virtualenvwrapper.sh)"
 fi
 
@@ -140,7 +140,7 @@ if [ -x /usr/local/bin/lesspipe.sh ]; then
 fi
 
 # Java
-if [ -x /usr/libexec/java_home ]; then
+if /usr/libexec/java_home &>/dev/null; then
     export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
     PATH="$JAVA_HOME/bin:$PATH"
 fi

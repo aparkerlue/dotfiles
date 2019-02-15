@@ -71,10 +71,14 @@ if ! shopt -oq posix; then
 fi
 
 # direnv - brew install direnv
-eval "$(direnv hook bash)"
+if command -v direnv >/dev/null; then
+    eval "$(direnv hook bash)"
+fi
 
 # Pipenv - pip install pipenv
-eval "$(pipenv --completion)"
+if command -v pipenv >/dev/null; then
+    eval "$(pipenv --completion)"
+fi
 
 # Poetry
 if command -v poetry >/dev/null; then
@@ -107,7 +111,11 @@ icloud="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-[ -f $HOME/.npm-packages/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash ] && . $HOME/.npm-packages/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash
+if [ -f $HOME/.npm-packages/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash ]; then
+    . $HOME/.npm-packages/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash
+fi
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-[ -f $HOME/.npm-packages/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash ] && . $HOME/.npm-packages/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash
+if [ -f $HOME/.npm-packages/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash ]; then
+    . $HOME/.npm-packages/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash
+fi
