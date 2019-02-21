@@ -90,7 +90,7 @@
 (if (boundp 'x-alt-keysym)
     (setq x-alt-keysym 'meta))
 
-; Backup and auto-save files
+;; Backup and auto-save files
 (let ((backup-dir (concat user-emacs-directory "backup"))
       (auto-save-dir (concat user-emacs-directory "auto-save")))
   (dolist (dir (list backup-dir auto-save-dir))
@@ -103,13 +103,12 @@
                                   )
  )
 )
+
+;; General
 (setq
  make-backup-files t
  auto-save-default t
- )
-
-; General
-(setq
+ create-lockfiles nil
  inhibit-splash-screen t
  visible-bell t
  sentence-end-double-space nil
