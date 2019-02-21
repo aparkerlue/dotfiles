@@ -13,6 +13,7 @@ Install [rcm](https://github.com/thoughtbot/rcm).
 `~/.rcrc`:
 
 ```bash
+COPY_ALWAYS="emacs.d/init.el"
 DOTFILES_DIRS="$HOME/.dotfiles $HOME/Dropbox/dotfiles"
 EXCLUDES="LICENSE README.md"
 ```
