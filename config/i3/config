@@ -155,5 +155,5 @@ bar {
         status_command i3status
 }
 
-exec --no-startup-id xrandr --dpi 220
 exec --no-startup-id xinput set-prop "DELL08AF:00 06CB:76AF Touchpad" "libinput Natural Scrolling Enabled" 1
+exec --no-startup-id dropbox start

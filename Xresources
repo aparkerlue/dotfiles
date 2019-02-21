@@ -1,7 +1,9 @@
-! Fonts {{{
 Xft.antialias: true
 Xft.hinting:   true
 Xft.rgba:      rgb
 Xft.hintstyle: hintfull
-Xft.dpi:       220
-! }}}
+Xft.dpi:       200
+
+URxvt.font: xft:Inconsolata:pixelsize=28
+URxvt.background: rgb:00/00/00
+URxvt.foreground: rgb:ff/ff/ff

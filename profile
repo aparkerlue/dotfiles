@@ -53,6 +53,7 @@ export MANPATH=":$HOME/man"
 export CLICOLOR=1
 export LC_COLLATE="C"
 export EDITOR="vim"
+export TERMINAL="urxvt"
 
 # GnuPG and SSH agent
 export GPG_TTY="$(tty)"
