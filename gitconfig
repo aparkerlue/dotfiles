@@ -1,13 +1,15 @@
 [alias]
-    lg = log --all --decorate --graph --oneline
+        lg = log --all --decorate --graph --oneline
 [core]
 	editor = vim
 	pager = less -S
+[credential]
+	helper = store
 [gpg]
 	program = gpg
 [push]
 	default = simple
 [user]
 	name = Alan Parker Lue
-	email = alan.parkerlue@gmail.com
+	email = aparkerlue@gmail.com
 	signingkey = "0xA5C2FE4660CF2A3D"
