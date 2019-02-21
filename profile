@@ -96,7 +96,7 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 # pyenv-virtualenv - git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
-if [ -d "$(pyenv root)/plugins/pyenv-virtualenv" ]; then
+if command -v pyenv &>/dev/null && [ -d "$(pyenv root)/plugins/pyenv-virtualenv" ]; then
     eval "$(pyenv virtualenv-init -)"
 fi
 
