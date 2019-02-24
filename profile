@@ -8,7 +8,7 @@
 
 # the default umask is set in /etc/profile; for setting the umask
 # for ssh logins, install and configure the libpam-umask package.
-umask 0002
+umask 0022
 
 # Initialize the search path
 if [ -x /usr/libexec/path_helper ]; then
