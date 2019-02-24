@@ -142,7 +142,7 @@
 (add-to-list 'default-frame-alist '(alpha . (95 . 90)))
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
-(add-to-list 'default-frame-alist '(font . "Inconsolata-12"))
+(add-to-list 'default-frame-alist '(font . "Inconsolata-11"))
 
 ;; Hi Lock mode
 (global-hi-lock-mode 1)
