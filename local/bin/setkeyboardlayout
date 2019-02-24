@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if setxkbmap -layout us-unix -option &>/dev/null; then
+    setxkbmap -layout us-unix -option "altwin:swap_alt_win,ctrl:rctrl_ralt"
+    exit
+fi
+
+setxkbmap -layout us -option
+setxkbmap -layout us -option "ctrl:swapcaps,altwin:swap_alt_win,ctrl:rctrl_ralt"
