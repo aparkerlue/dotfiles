@@ -481,9 +481,9 @@
 (global-set-key (kbd "<C-s-268632070>") 'toggle-frame-fullscreen)
 
 ;; Emacs server
-;; (require 'server)
-;; (unless (server-running-p)
-;;   (server-start))
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 (put 'set-goal-column 'disabled nil)
 
