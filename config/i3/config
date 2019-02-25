@@ -156,6 +156,7 @@ bar {
 }
 
 bindsym Mod1+Mod4+l exec i3lock -c 333333 -f
+bindsym Mod1+Mod4+s exec ~/.local/bin/i3suspend
 
 exec --no-startup-id ~/.local/bin/setkeyboardlayout
 exec --no-startup-id xautolock -time 10 -locker "i3lock -c 333333 -f" &
