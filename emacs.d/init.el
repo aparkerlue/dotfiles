@@ -106,6 +106,7 @@
 
 ;; General
 (setq
+ x-super-keysym 'meta
  make-backup-files t
  auto-save-default t
  create-lockfiles nil
