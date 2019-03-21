@@ -115,8 +115,8 @@ MANPATH="$npm_packages/share/man:$MANPATH"
 NODE_PATH="$npm_packages/lib/node_modules"
 
 # RubyGems
-if [ -d "$HOME/.gem/ruby/2.3.0/bin" ]; then
-    PATH="$HOME/.gem/ruby/2.3.0/bin:$PATH"
+if [ -d "$HOME/.gem/ruby/2.5.0/bin" ]; then
+    PATH="$HOME/.gem/ruby/2.5.0/bin:$PATH"
 fi
 
 # Spark
