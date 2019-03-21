@@ -8,7 +8,6 @@ if [[ $OSTYPE == darwin* ]]; then
 else
     alias ls='ls --color=auto'
 fi
-alias ec='emacsclient'
 alias R='R -q --no-save'
 alias per='pipenv run'
 alias pri='pipenv run ipython'
