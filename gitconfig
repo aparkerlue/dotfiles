@@ -1,5 +1,7 @@
 [alias]
         lg = log --all --decorate --graph --oneline
+[commit]
+	gpgSign = true
 [core]
 	editor = vim
 	pager = less -S
@@ -12,4 +14,4 @@
 [user]
 	name = Alan Parker Lue
 	email = aparkerlue@gmail.com
-	signingkey = "0xA5C2FE4660CF2A3D"
+	signingkey = 0xA5C2FE4660CF2A3D
