@@ -1,10 +1,17 @@
-Xft.antialias: true
-Xft.hinting:   true
-Xft.rgba:      rgb
+! Xft.dpi:       216
+Xft.dpi:       96
+Xft.autohint:  false
+Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintfull
-Xft.dpi:       200
+Xft.hinting:   true
+Xft.antialias: true
+Xft.rgba:      rgb
 
-URxvt.font: xft:Inconsolata:pixelsize=28
-URxvt.background: rgb:00/00/00
+! URxvt.font: xft:Inconsolata:pixelsize=32
+URxvt.font: xft:Inconsolata:pixelsize=14
+URxvt.background: rgb:11/11/11
 URxvt.foreground: rgb:ff/ff/ff
+URxvt.color12: rgb:5c/5c/ff
+URxvt.letterSpace: 0
 URxvt.modifier: super
+URxvt.scrollBar: false
