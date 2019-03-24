@@ -12,48 +12,8 @@
     ("a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
  '(package-selected-packages
    (quote
-    (
-     ace-window
-     chronos
-     csv-mode
-     direnv
-     dotenv-mode
-     dracula-theme
-     elpy
-     emamux
-     ess
-     eterm-256color
-     exec-path-from-shell
-     helm-dash
-     htmlize
-     json-mode
-     json-reformat
-     ledger-mode
-     magit
-     markdown-mode
-     mmm-jinja2
-     mmm-mode
-     neotree
-     org
-     password-store
-     pinentry
-     pipenv
-     realgud
-     sql-indent
-     super-save
-     svg-clock
-     unicode-fonts
-     web-mode
-     which-key
-     xclip
-     yaml-mode
-     )
-    )
-   )
- '(safe-local-variable-values
-   (quote
-    ((make-backup-files)
-     (org-confirm-babel-evaluate)))))
+    (org-bullets pandoc-mode ace-window chronos csv-mode direnv dotenv-mode dracula-theme elpy emamux ess eterm-256color exec-path-from-shell helm-dash htmlize json-mode json-reformat ledger-mode magit markdown-mode mmm-jinja2 mmm-mode neotree org password-store pinentry pipenv realgud sql-indent super-save svg-clock unicode-fonts web-mode which-key xclip yaml-mode)))
+ '(safe-local-variable-values (quote ((make-backup-files) (org-confirm-babel-evaluate)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -149,7 +109,7 @@
 (global-hi-lock-mode 1)
 
 (require 'vc)
-(setq vc-follow-symlinks t)
+(setq vc-follow-symlinks nil)
 
 ;; https://www.emacswiki.org/emacs/UnicodeFonts
 (require 'unicode-fonts)
@@ -203,8 +163,12 @@
 ;; Tramp
 (setq tramp-default-method "ssh")
 
+;; pandoc-mode
+(require 'pandoc-mode)
+
 ;; Markdown mode
 (require 'markdown-mode)
+(add-hook 'markdown-mode-hook 'pandoc-mode)
 
 ;; dotenv-mode
 (require 'dotenv-mode)
@@ -329,6 +293,10 @@
                          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
                          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f")
  )
+
+;; org-bullets
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 ;; Org-mode: Bimodal cycling
 ;; https://emacs.stackexchange.com/questions/36232/org-mode-property-to-make-subtree-visibility-bimodal
