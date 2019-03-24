@@ -54,6 +54,7 @@ export CLICOLOR=1
 export LC_COLLATE="C"
 export EDITOR="vim"
 export TERMINAL="urxvt"
+# export TERMINAL="sakura"
 
 # GnuPG and SSH agent
 export GPG_TTY="$(tty)"
