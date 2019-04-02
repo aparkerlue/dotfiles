@@ -168,12 +168,12 @@ bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
 bindsym XF86MonBrightnessUp exec xbacklight -inc 2
 bindsym XF86MonBrightnessDown exec xbacklight -dec 2
 
-bindsym Mod1+Mod4+l exec i3lock -c 333333 -f
+bindsym Mod1+Control+q exec i3lock -c 333333 -f
 bindsym Mod1+Mod4+s exec ~/.local/bin/i3suspend
 
 exec --no-startup-id xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal
 exec --no-startup-id ~/.local/bin/setkeyboardlayout
-exec --no-startup-id xautolock -time 10 -locker "i3lock -c 333333 -f" &
+exec --no-startup-id xautolock -time 10 -locker "i3lock -c 333333 -f" -notify 10 -notifier 'notify-send xautolock "10 s to screen lock"' &
 exec --no-startup-id nm-applet &
 exec --no-startup-id dropbox start
 
