@@ -462,14 +462,9 @@
 (put 'set-goal-column 'disabled nil)
 
 ;; Registers
+(set-register ?I (cons 'file (expand-file-name "inbox.org" org-directory)))
 (set-register ?j (cons 'file (expand-file-name "Journal/Journal.org.gpg" org-directory)))
 (set-register ?n (cons 'file (expand-file-name "Notes/Notes.org.gpg" org-directory)))
 (set-register ?p (cons 'file (expand-file-name "Passphrases/Passphrases.org.gpg" org-directory)))
 (set-register ?g (cons 'file (expand-file-name "general.org" org-directory)))
 (set-register ?r (cons 'file (expand-file-name "reading.org" org-directory)))
-
-;; Visit files
-(let ((f (expand-file-name "inbox.org" org-directory)))
-  (if (file-readable-p f)
-     (find-file f)))
-(switch-to-buffer "*scratch*")
