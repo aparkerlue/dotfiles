@@ -34,9 +34,7 @@
 %%
 
 %%
-% This is the Eisvogel pandoc LaTeX template.
-%
-% For usage information and examples visit the official GitHub page:
+% For usage information and examples visit the GitHub page of this template:
 % https://github.com/Wandmalfarbe/pandoc-latex-template
 %%
 
@@ -344,7 +342,7 @@ $endif$
 $if(numbersections)$
 \setcounter{secnumdepth}{$if(secnumdepth)$$secnumdepth$$else$5$endif$}
 $else$
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\setcounter{secnumdepth}{-2}
 $endif$
 $if(beamer)$
 $else$
@@ -456,9 +454,7 @@ $endif$
 %%
 
 %
-% language specification
-%
-% If no language is specified, use English as the default main document language.
+% No language specified? take American English.
 %
 $if(lang)$$else$
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
@@ -469,10 +465,7 @@ $endif$
 \else
   $if(mainfont)$
   $else$
-  % Workaround for bug in Polyglossia that breaks `\familydefault` when `\setmainlanguage` is used.
-  % See https://github.com/Wandmalfarbe/pandoc-latex-template/issues/8
-  % See https://github.com/reutenauer/polyglossia/issues/186
-  % See https://github.com/reutenauer/polyglossia/issues/127
+  % See issue https://github.com/reutenauer/polyglossia/issues/127
   \renewcommand*\familydefault{\sfdefault}
   $endif$
   % load polyglossia as late as possible as it *could* call bidi if RTL lang (e.g. Hebrew or Arabic)
@@ -483,6 +476,34 @@ $for(polyglossia-otherlangs)$
 $endfor$
 \fi
 $endif$
+
+%
+% colors
+%
+\usepackage[]{xcolor}
+
+%
+% listing colors
+%
+\definecolor{listing-background}{HTML}{F7F7F7}
+\definecolor{listing-rule}{HTML}{B3B2B3}
+\definecolor{listing-numbers}{HTML}{B3B2B3}
+\definecolor{listing-text-color}{HTML}{000000}
+\definecolor{listing-keyword}{HTML}{435489}
+\definecolor{listing-identifier}{HTML}{435489}
+\definecolor{listing-string}{HTML}{00999A}
+\definecolor{listing-comment}{HTML}{8E8E8E}
+\definecolor{listing-javadoc-comment}{HTML}{006CA9}
+
+%\definecolor{listing-background}{rgb}{0.97,0.97,0.97}
+%\definecolor{listing-rule}{HTML}{B3B2B3}
+%\definecolor{listing-numbers}{HTML}{B3B2B3}
+%\definecolor{listing-text-color}{HTML}{000000}
+%\definecolor{listing-keyword}{HTML}{D8006B}
+%\definecolor{listing-identifier}{HTML}{000000}
+%\definecolor{listing-string}{HTML}{006CA9}
+%\definecolor{listing-comment}{rgb}{0.25,0.5,0.35}
+%\definecolor{listing-javadoc-comment}{HTML}{006CA9}
 
 %
 % for the background color of the title page
@@ -518,6 +539,7 @@ $endif$
 \definecolor{caption-color}{HTML}{777777}
 \usepackage[font={stretch=1.2}, textfont={color=caption-color}, position=top, skip=4mm, labelfont=bf, singlelinecheck=false, justification=$if(caption-justification)$$caption-justification$$else$raggedright$endif$]{caption}
 \setcapindent{0em}
+\captionsetup[longtable]{position=above}
 
 %
 % blockquote
@@ -544,7 +566,7 @@ $else$
 % XeLaTeX specific adjustments for straight quotes: https://tex.stackexchange.com/a/354887
 % This issue is already fixed (see https://github.com/silkeh/latex-sourcecodepro/pull/5) but the 
 % fix is still unreleased.
-% TODO: Remove this workaround when the new version of sourcecodepro is released on CTAN.
+% TODO: Remove this workaround when the new version of sourcecodepro is reelased on CTAN.
 \ifxetex
 \makeatletter
 \defaultfontfeatures[\ttfamily]
@@ -624,20 +646,6 @@ $endif$
 %
 
 $if(listings)$
-
-%
-% listing colors
-%
-\definecolor{listing-background}{HTML}{F7F7F7}
-\definecolor{listing-rule}{HTML}{B3B2B3}
-\definecolor{listing-numbers}{HTML}{B3B2B3}
-\definecolor{listing-text-color}{HTML}{000000}
-\definecolor{listing-keyword}{HTML}{435489}
-\definecolor{listing-identifier}{HTML}{435489}
-\definecolor{listing-string}{HTML}{00999A}
-\definecolor{listing-comment}{HTML}{8E8E8E}
-\definecolor{listing-javadoc-comment}{HTML}{006CA9}
-
 \lstdefinestyle{eisvogel_listing_style}{
   language         = java,
 $if(listings-disable-line-numbers)$
@@ -652,15 +660,13 @@ $endif$
   basicstyle       = \color{listing-text-color}\small\ttfamily{}\linespread{1.15}, % print whole listing small
   breaklines       = true,
   frame            = single,
-  framesep         = 0.19em,
+  framesep         = 0.6mm,
   rulecolor        = \color{listing-rule},
   frameround       = ffff,
   tabsize          = 4,
   numberstyle      = \color{listing-numbers},
-  aboveskip        = -0.7em,
-  belowskip        = 0.1em,
-  abovecaptionskip = 0em,
-  belowcaptionskip = 1em,
+  aboveskip        = 1.0em,
+  belowcaptionskip = 1.0em,
   keywordstyle     = \color{listing-keyword}\bfseries,
   classoffset      = 0,
   sensitive        = true,
@@ -778,7 +784,7 @@ $endif$
 %% end titlepage
 %%
 
-$if(has-frontmatter)$
+$if(book-class)$
 \frontmatter
 $endif$
 $if(title)$
@@ -834,18 +840,18 @@ $endif$
 $if(lof)$
 \listoffigures
 $endif$
-$if(has-frontmatter)$
+$if(book-class)$
 \mainmatter
 $endif$
 $body$
 
-$if(has-frontmatter)$
+$if(book-class)$
 \backmatter
 $endif$
 $if(natbib)$
 $if(bibliography)$
 $if(biblio-title)$
-$if(has-frontmatter)$
+$if(book-class)$
 \renewcommand\bibname{$biblio-title$}
 $else$
 \renewcommand\refname{$biblio-title$}
