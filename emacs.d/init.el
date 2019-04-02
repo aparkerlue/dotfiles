@@ -44,7 +44,7 @@
 (package-install-selected-packages)
 
 (global-display-line-numbers-mode)
-(find-file-existing user-init-file)
+(set-register ?i (cons 'file user-init-file))
 
 ; X11: Interpret alt key-press as meta
 (if (boundp 'x-alt-keysym)
@@ -109,7 +109,7 @@
 (global-hi-lock-mode 1)
 
 (require 'vc)
-(setq vc-follow-symlinks nil)
+(setq vc-follow-symlinks t)
 
 ;; https://www.emacswiki.org/emacs/UnicodeFonts
 (require 'unicode-fonts)
