@@ -45,7 +45,6 @@
   (package-refresh-contents))
 (package-install-selected-packages)
 
-(global-display-line-numbers-mode)
 (set-register ?i (cons 'file user-init-file))
 
 ; X11: Interpret alt key-press as meta
@@ -449,6 +448,16 @@
 ;; emamux
 (require 'emamux)
 (global-set-key (kbd "C-z") emamux:keymap)
+
+;; line numbers
+(dolist (hook '(conf-mode-hook
+                markdown-mode-hook
+                org-mode-hook
+                ess-mode-hook
+                python-mode-hook
+                )
+              )
+  (add-hook hook 'display-line-numbers-mode))
 
 ;; Key bindings for macOS
 (global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen)
