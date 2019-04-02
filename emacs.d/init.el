@@ -10,6 +10,7 @@
  '(custom-safe-themes
    (quote
     ("a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
+ '(inferior-R-args "--no-save")
  '(package-selected-packages
    (quote
     (org-bullets pandoc-mode ace-window chronos csv-mode direnv dotenv-mode dracula-theme elpy emamux ess eterm-256color exec-path-from-shell helm-dash htmlize json-mode json-reformat ledger-mode magit markdown-mode mmm-jinja2 mmm-mode neotree org password-store pinentry pipenv realgud sql-indent super-save svg-clock unicode-fonts web-mode which-key xclip yaml-mode)))
@@ -218,6 +219,10 @@
 ;;  realgud:trepan2-command-name "pipenv run trepan2"
 ;;  realgud:trepan3k-command-name "pipenv run trepan3k"
 ;;  )
+
+;; ESS
+(require 'ess)
+(setq ess-ask-for-ess-directory nil)
 
 ;; EasyPG
 (require 'epa-file)
