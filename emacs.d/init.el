@@ -451,6 +451,7 @@
 
 ;; line numbers
 (dolist (hook '(conf-mode-hook
+                ledger-mode-hook
                 markdown-mode-hook
                 org-mode-hook
                 ess-mode-hook
