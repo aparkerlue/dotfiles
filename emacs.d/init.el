@@ -110,7 +110,7 @@
 (global-hi-lock-mode 1)
 
 (require 'vc)
-(setq vc-follow-symlinks t)
+(setq vc-follow-symlinks nil)
 
 ;; https://www.emacswiki.org/emacs/UnicodeFonts
 (require 'unicode-fonts)
