@@ -457,6 +457,7 @@
                 emacs-lisp-mode-hook
                 ess-mode-hook
                 python-mode-hook
+                sh-mode-hook
                 )
               )
   (add-hook hook 'display-line-numbers-mode))
