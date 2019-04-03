@@ -454,6 +454,7 @@
                 ledger-mode-hook
                 markdown-mode-hook
                 org-mode-hook
+                emacs-lisp-mode-hook
                 ess-mode-hook
                 python-mode-hook
                 )
