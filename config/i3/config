@@ -161,12 +161,12 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the first scratchpad window
 bindsym $mod+Control+minus scratchpad show
 
-bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 1+ unmute"
-bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 1- unmute"
-bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
+bindsym XF86AudioRaiseVolume exec apl-change-volume 2dB+ unmute
+bindsym XF86AudioLowerVolume exec apl-change-volume 2dB- unmute
+bindsym XF86AudioMute exec apl-change-volume toggle
 
-bindsym XF86MonBrightnessUp exec xbacklight -inc 2
-bindsym XF86MonBrightnessDown exec xbacklight -dec 2
+bindsym XF86MonBrightnessUp exec xbacklight -inc 1
+bindsym XF86MonBrightnessDown exec xbacklight -dec 1
 
 bindsym Mod1+Control+q exec i3lock -c 333333 -f
 bindsym Mod1+Mod4+s exec ~/.local/bin/i3suspend
