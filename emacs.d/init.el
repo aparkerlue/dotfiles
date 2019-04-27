@@ -110,7 +110,7 @@
 (global-hi-lock-mode 1)
 
 (require 'vc)
-(setq vc-follow-symlinks nil)
+(setq vc-follow-symlinks t)
 
 ;; https://www.emacswiki.org/emacs/UnicodeFonts
 (require 'unicode-fonts)
@@ -337,6 +337,7 @@
 (if (featurep 'ledger-mode)
     (add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode)))
 (setq
+ ledger-init-file-name "~/.config/ledger/ledgerrc"
  ledger-highlight-xact-under-point nil
  ledger-clear-whole-transactions t
  )
