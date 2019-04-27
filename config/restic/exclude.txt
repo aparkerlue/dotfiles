@@ -1,0 +1,8 @@
+*.elc
+*.pyc
+
+.cache
+Cache
+__pycache__
+
+/home/*/.local/share/virtualenvs/*
