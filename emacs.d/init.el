@@ -14,7 +14,7 @@
  '(inferior-R-args "--no-save")
  '(package-selected-packages
    (quote
-    (org-bullets pandoc-mode ace-window chronos csv-mode direnv dotenv-mode dracula-theme elpy emamux ess eterm-256color exec-path-from-shell helm-dash htmlize json-mode json-reformat ledger-mode magit markdown-mode mmm-jinja2 mmm-mode neotree org password-store pinentry pipenv realgud sql-indent super-save svg-clock unicode-fonts web-mode which-key xclip yaml-mode)))
+    (markdown-mode org-bullets pandoc-mode ace-window chronos csv-mode direnv dotenv-mode dracula-theme elpy emamux ess eterm-256color exec-path-from-shell helm-dash htmlize json-mode json-reformat ledger-mode magit mmm-jinja2 mmm-mode neotree org password-store pinentry pipenv realgud sql-indent super-save svg-clock unicode-fonts web-mode which-key xclip yaml-mode)))
  '(safe-local-variable-values (quote ((make-backup-files) (org-confirm-babel-evaluate)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -37,7 +37,7 @@
  package-archive-priorities '(
 			      ("gnu" . 15)
 			      ("melpa-stable" . 10)
-			      ("melpa-stable" . 5)
+			      ("melpa" . 5)
 			      )
  )
 (package-initialize)
@@ -451,13 +451,20 @@
 
 ;; line numbers
 (dolist (hook '(conf-mode-hook
+                csv-mode-hook
+                dotenv-mode-hook
+                json-mode-hook
                 ledger-mode-hook
+                makefile-mode-hook
                 markdown-mode-hook
                 org-mode-hook
                 emacs-lisp-mode-hook
                 ess-mode-hook
                 python-mode-hook
+                inferior-python-mode-hook
                 sh-mode-hook
+                sql-mode-hook
+                text-mode-hook
                 )
               )
   (add-hook hook 'display-line-numbers-mode))
@@ -476,6 +483,7 @@
 
 ;; Registers
 (set-register ?I (cons 'file (expand-file-name "inbox.org" org-directory)))
+(set-register ?h (cons 'file (expand-file-name "Health/Health.org.gpg" org-directory)))
 (set-register ?j (cons 'file (expand-file-name "Journal/Journal.org.gpg" org-directory)))
 (set-register ?n (cons 'file (expand-file-name "Notes/Notes.org.gpg" org-directory)))
 (set-register ?p (cons 'file (expand-file-name "Passphrases/Passphrases.org.gpg" org-directory)))
