@@ -484,6 +484,7 @@
 
 ;; Registers
 (set-register ?I (cons 'file (expand-file-name "inbox.org" org-directory)))
+(set-register ?f (cons 'file (expand-file-name "Family/Family.org.gpg" org-directory)))
 (set-register ?h (cons 'file (expand-file-name "Health/Health.org.gpg" org-directory)))
 (set-register ?j (cons 'file (expand-file-name "Journal/Journal.org.gpg" org-directory)))
 (set-register ?n (cons 'file (expand-file-name "Notes/Notes.org.gpg" org-directory)))
