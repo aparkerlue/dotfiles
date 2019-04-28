@@ -14,7 +14,7 @@
  '(inferior-R-args "--no-save")
  '(package-selected-packages
    (quote
-    (markdown-mode org-bullets pandoc-mode ace-window chronos csv-mode direnv dotenv-mode dracula-theme elpy emamux ess eterm-256color exec-path-from-shell helm-dash htmlize json-mode json-reformat ledger-mode magit mmm-jinja2 mmm-mode neotree org password-store pinentry pipenv realgud sql-indent super-save svg-clock unicode-fonts web-mode which-key xclip yaml-mode)))
+    (ecb markdown-mode org-bullets pandoc-mode ace-window chronos csv-mode direnv dotenv-mode dracula-theme elpy emamux ess eterm-256color exec-path-from-shell helm-dash htmlize json-mode json-reformat ledger-mode magit mmm-jinja2 mmm-mode neotree org password-store pinentry pipenv realgud sql-indent super-save svg-clock unicode-fonts web-mode which-key xclip yaml-mode)))
  '(safe-local-variable-values (quote ((make-backup-files) (org-confirm-babel-evaluate)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -387,6 +387,12 @@
                             )
  )
 
+;; ECB
+(require 'ecb)
+(setq
+ ecb-source-path '("~/Documents/GitHub")
+ )
+
 ;; Functions
 (defun user-stamp-creation-time ()
   "Stamp Org-mode headline with creation time in CREATED property."
@@ -451,7 +457,8 @@
 (global-set-key (kbd "C-z") emamux:keymap)
 
 ;; line numbers
-(dolist (hook '(conf-mode-hook
+(dolist (hook '(c-mode-hook
+                conf-mode-hook
                 csv-mode-hook
                 dotenv-mode-hook
                 json-mode-hook
