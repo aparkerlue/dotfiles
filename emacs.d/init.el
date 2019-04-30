@@ -45,7 +45,7 @@
   (package-refresh-contents))
 (package-install-selected-packages)
 
-(set-register ?i (cons 'file user-init-file))
+(set-register ?I (cons 'file user-init-file))
 
 ; X11: Interpret alt key-press as meta
 (if (boundp 'x-alt-keysym)
@@ -260,24 +260,46 @@
 (require 'org)
 (require 'ox-md nil t)
 (require 'org-tempo)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
 (setq
  org-directory (cond
                 ((file-directory-p "~/Dropbox (Personal)") "~/Dropbox (Personal)/org")
                 ((file-directory-p "~/Dropbox") "~/Dropbox/org")
                 (t "~/org")
                 )
+ org-default-notes-file (concat org-directory "/notes.org")
  org-ellipsis "▶"
  org-adapt-indentation nil
  org-src-fontify-natively t
  org-src-preserve-indentation nil
  org-edit-src-content-indentation 0
  org-log-into-drawer t
+ org-log-done 'time
  org-use-property-inheritance nil
- org-use-tag-inheritance nil
+ org-use-tag-inheritance t
  org-babel-no-eval-on-ctrl-c-ctrl-c t
  org-confirm-babel-evaluate '(lambda (lang body) (not (or (string= lang "R") (string= lang "sql"))))
- org-todo-keywords '((sequence "PEND" "TODO" "|" "DONE"))
+ org-todo-keywords '((sequence "TODO(t)" "PENDING(p)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
  org-todo-keyword-faces '(("PEND" . "yellow") ("WAIT" . "yellow"))
+ org-tag-alist '(("@understood" . ?u) ("@home" . ?h) ("@ws" . ?w))
+ org-agenda-files '("~/Dropbox/org/inbox.org"
+                    "~/Dropbox/org/projects.org"
+                    )
+ org-capture-templates '(("t" "To-do [inbox]" entry
+                          (file "~/Dropbox/org/inbox.org")
+                          "* TODO %?\n%U\n%i"
+                          )
+                         ("j" "Journal" entry
+                          (file+datetree "~/Dropbox/org/Journal/Journal.org.gpg")
+                          "* %?\n%i"
+                          )
+                         )
+ org-refile-use-outline-path 'file
+ org-refile-targets '((org-agenda-files :maxlevel . 1)
+                      ("~/Dropbox/org/maybe.org" :maxlevel . 1)
+                      )
  )
 (with-eval-after-load "org"
   (define-key org-mode-map (kbd "M-n") 'outline-next-visible-heading)
@@ -490,11 +512,12 @@
 (put 'set-goal-column 'disabled nil)
 
 ;; Registers
-(set-register ?I (cons 'file (expand-file-name "inbox.org" org-directory)))
+(set-register ?P (cons 'file (expand-file-name "Passphrases/Passphrases.org.gpg" org-directory)))
 (set-register ?f (cons 'file (expand-file-name "Family/Family.org.gpg" org-directory)))
 (set-register ?h (cons 'file (expand-file-name "Health/Health.org.gpg" org-directory)))
 (set-register ?j (cons 'file (expand-file-name "Journal/Journal.org.gpg" org-directory)))
 (set-register ?n (cons 'file (expand-file-name "Notes/Notes.org.gpg" org-directory)))
-(set-register ?p (cons 'file (expand-file-name "Passphrases/Passphrases.org.gpg" org-directory)))
+(set-register ?i (cons 'file (expand-file-name "inbox.org" org-directory)))
+(set-register ?p (cons 'file (expand-file-name "projects.org" org-directory)))
 (set-register ?g (cons 'file (expand-file-name "general.org" org-directory)))
 (set-register ?r (cons 'file (expand-file-name "reading.org" org-directory)))
