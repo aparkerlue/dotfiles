@@ -283,7 +283,11 @@
  org-confirm-babel-evaluate '(lambda (lang body) (not (or (string= lang "R") (string= lang "sql"))))
  org-todo-keywords '((sequence "TODO(t)" "PENDING(p)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
  org-todo-keyword-faces '(("PEND" . "yellow") ("WAIT" . "yellow"))
- org-tag-alist '(("@understood" . ?u) ("@home" . ?h) ("@ws" . ?w))
+ org-tag-alist '(("@home" . ?h)
+                 ("@ws" . ?w)
+                 ("@mobile" . ?m)
+                 ("understood" . ?u)
+                 )
  org-agenda-files '("~/Dropbox/org/inbox.org"
                     "~/Dropbox/org/projects.org"
                     )
