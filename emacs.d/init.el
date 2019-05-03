@@ -513,7 +513,9 @@
 (unless (server-running-p)
   (server-start))
 
+;; Enable default-disabled functions
 (put 'set-goal-column 'disabled nil)
+(put 'scroll-left 'disabled nil)
 
 ;; Registers
 (set-register ?P (cons 'file (expand-file-name "Passphrases/Passphrases.org.gpg" org-directory)))
