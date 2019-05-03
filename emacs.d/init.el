@@ -419,6 +419,19 @@
  ecb-source-path '("~/Documents/GitHub")
  )
 
+;; csv-mode
+(add-hook 'csv-mode-hook
+          (lambda ()
+            (define-key csv-mode-map (kbd "C-c C-M-a")
+              (defun csv-align-visible (&optional arg)
+                "Align visible fields"
+                (interactive "P")
+                (csv-align-fields nil (window-start) (window-end))
+                )
+              )
+            )
+          )
+
 ;; Functions
 (defun user-stamp-creation-time ()
   "Stamp Org-mode headline with creation time in CREATED property."
