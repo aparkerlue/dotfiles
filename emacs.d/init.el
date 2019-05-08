@@ -301,7 +301,7 @@
                           )
                          )
  org-refile-use-outline-path 'file
- org-refile-targets '((org-agenda-files :maxlevel . 1)
+ org-refile-targets '((org-agenda-files :maxlevel . 2)
                       ("~/Dropbox/org/maybe.org" :maxlevel . 1)
                       )
  )
