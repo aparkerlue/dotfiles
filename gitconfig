@@ -1,5 +1,5 @@
 [alias]
-        lg = log --all --decorate --graph --oneline
+        lg = log --graph --oneline
 [commit]
 	gpgSign = true
 [core]
