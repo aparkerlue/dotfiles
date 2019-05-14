@@ -4,5 +4,6 @@
 .cache
 Cache
 __pycache__
+/home/*/.config/chromium/**/CacheStorage
 
 /home/*/.local/share/virtualenvs/*
