@@ -60,6 +60,7 @@ export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;
 export EDITOR="vim"
 export TERMINAL="urxvt"
 # export TERMINAL="sakura"
+export TEXMFHOME="$XDG_DATA_HOME/texmf"
 
 # GnuPG and SSH agent
 export GPG_TTY="$(tty)"
