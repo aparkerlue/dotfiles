@@ -166,6 +166,7 @@
 
 ;; pandoc-mode
 (require 'pandoc-mode)
+(add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
 
 ;; Markdown mode
 (require 'markdown-mode)
