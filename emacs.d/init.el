@@ -14,7 +14,7 @@
  '(inferior-R-args "--no-save")
  '(package-selected-packages
    (quote
-    (ecb markdown-mode org-bullets pandoc-mode ace-window chronos csv-mode direnv dotenv-mode dracula-theme elpy emamux ess eterm-256color exec-path-from-shell helm-dash htmlize json-mode json-reformat ledger-mode magit mmm-jinja2 mmm-mode neotree org password-store pinentry pipenv realgud sql-indent super-save svg-clock unicode-fonts web-mode which-key xclip yaml-mode)))
+    (poly-markdown ecb markdown-mode org-bullets pandoc-mode ace-window chronos csv-mode direnv dotenv-mode dracula-theme elpy emamux ess eterm-256color exec-path-from-shell helm-dash htmlize json-mode json-reformat ledger-mode magit mmm-jinja2 mmm-mode neotree org password-store pinentry pipenv realgud sql-indent super-save svg-clock unicode-fonts web-mode which-key xclip yaml-mode)))
  '(safe-local-variable-values (quote ((make-backup-files) (org-confirm-babel-evaluate)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -45,6 +45,7 @@
   (package-refresh-contents))
 (package-install-selected-packages)
 
+;; Set register for the user init file
 (set-register ?I (cons 'file user-init-file))
 
 ; X11: Interpret alt key-press as meta
@@ -163,6 +164,9 @@
 
 ;; Tramp
 (setq tramp-default-method "ssh")
+
+;; Polymode
+(add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
 
 ;; pandoc-mode
 (require 'pandoc-mode)
