@@ -167,6 +167,7 @@
 
 ;; Polymode
 (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown-mode))
 
 ;; pandoc-mode
 (require 'pandoc-mode)
