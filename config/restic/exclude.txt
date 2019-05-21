@@ -6,4 +6,6 @@ Cache
 __pycache__
 /home/*/.config/chromium
 
+/home/*/.emacs.d/auto-save/*
+/home/*/.emacs.d/backup/*
 /home/*/.local/share/virtualenvs/*
