@@ -85,6 +85,10 @@ if [ -z "$XDG_CONFIG_DIRS" ]; then
     export XDG_CONFIG_DIRS=/etc/xdg
 fi
 
+# Go
+export GOPATH="$HOME/.go"
+PATH="$GOPATH/bin:$PATH"
+
 # Poetry
 if [ -d "$HOME/.poetry/bin" ]; then
     PATH="$HOME/.poetry/bin:$PATH"
