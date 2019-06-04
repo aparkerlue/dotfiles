@@ -15,3 +15,6 @@
 	name = Alan Parker Lue
 	email = aparkerlue@gmail.com
 	signingkey = 0xA5C2FE4660CF2A3D
+[pager]
+	diff = true
+	status = true
