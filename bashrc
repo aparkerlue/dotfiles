@@ -94,14 +94,10 @@ gpgid="0xA5C2FE4660CF2A3D"
 # macOS --------------------------------------------------------------
 
 # brew info bash-completion@2
-if [ -f /usr/local/share/bash-completion/bash_completion ]; then
-    . /usr/local/share/bash-completion/bash_completion
-    shopt -s extglob
-    if type brew &>/dev/null; then
-        for completion_file in $(brew --prefix)/etc/bash_completion.d/*; do
-            source "$completion_file"
-        done
-    fi
+if type brew &>/dev/null \
+        && [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]]; then
+    export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+    . "/usr/local/etc/profile.d/bash_completion.sh"
 fi
 
 # iCloud Drive
