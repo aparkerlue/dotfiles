@@ -317,10 +317,13 @@
   )
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((emacs-lisp . t)
+ '(
+   (emacs-lisp . t)
    (sql . t)
-   (R . t)
-   (python . t)))
+   ;; (R . t)
+   (python . t)
+   )
+ )
 
 ;; Org-mode: LaTeX
 (add-to-list 'org-latex-packages-alist '("" "minted"))
@@ -520,7 +523,11 @@
                 text-mode-hook
                 )
               )
-  (add-hook hook 'display-line-numbers-mode))
+  (add-hook hook (if (fboundp 'display-line-numbers-mode)
+                     'display-line-numbers-mode
+                   'linum-mode)
+            )
+  )
 
 ;; Key bindings for macOS
 (global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen)
