@@ -176,7 +176,7 @@ exec --no-startup-id xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate no
 exec --no-startup-id ~/.local/bin/setkeyboardlayout
 exec --no-startup-id xautolock -time 10 -locker "i3lock -c 333333 -f" -notify 10 -notifier 'notify-send xautolock "10 s to screen lock"' &
 exec --no-startup-id nm-applet &
-exec --no-startup-id dropbox start
+exec --no-startup-id ~/.dropbox-dist/dropboxd
 
 exec xclock -norender &
 exec urxvt
