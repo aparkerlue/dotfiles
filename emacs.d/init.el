@@ -176,6 +176,9 @@
 ;; Markdown mode
 (require 'markdown-mode)
 (add-hook 'markdown-mode-hook 'pandoc-mode)
+(setq-default
+ markdown-hide-urls t
+ )
 
 ;; dotenv-mode
 (require 'dotenv-mode)
