@@ -10,3 +10,4 @@ else
 fi
 alias psudo='sudo env "PATH=$PATH"'
 alias R='R -q --no-save'
+alias ec='emacsclient -t'
