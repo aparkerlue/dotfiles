@@ -284,7 +284,12 @@
  org-use-property-inheritance nil
  org-use-tag-inheritance t
  org-babel-no-eval-on-ctrl-c-ctrl-c t
- org-confirm-babel-evaluate '(lambda (lang body) (not (or (string= lang "R") (string= lang "sql"))))
+ org-confirm-babel-evaluate '(lambda
+                               (lang body)
+                               (not (or (string= lang "R")
+                                        (string= lang "sql")
+                                        (string= lang "python"))))
+ org-babel-python-command "python3"
  org-todo-keywords '(
                      (sequence
                       "TODO(t)"
