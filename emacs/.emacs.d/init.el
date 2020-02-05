@@ -80,7 +80,7 @@
  fill-column 70
  case-fold-search t
  indent-tabs-mode nil
- truncate-lines t
+ truncate-lines nil
  show-trailing-whitespace nil
  )
 (global-auto-revert-mode t)
@@ -644,7 +644,8 @@ From https://emacs.stackexchange.com/a/35907/8574."
               )
   (add-hook hook
             (lambda ()
-              (setq show-trailing-whitespace t)
+              (setq show-trailing-whitespace t
+                    truncate-lines t)
               )
             )
   (add-hook hook
