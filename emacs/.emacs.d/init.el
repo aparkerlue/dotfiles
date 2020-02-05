@@ -623,7 +623,6 @@ From https://emacs.stackexchange.com/a/35907/8574."
 (dolist (hook '(c-mode-hook
                 conf-mode-hook
                 csv-mode-hook
-                diff-mode-hook
                 dockerfile-mode-hook
                 dotenv-mode-hook
                 graphviz-dot-mode-hook
