@@ -9,5 +9,3 @@ else
     alias ls='ls --color=auto --quoting-style=shell'
 fi
 alias psudo='sudo env "PATH=$PATH"'
-alias R='R -q --no-save'
-alias ec='emacsclient -t'
