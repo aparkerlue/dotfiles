@@ -444,6 +444,7 @@
  ledger-post-amount-alignment-column 64
  ledger-reports (quote
                  (("account-real" "%(binary) -R reg '^%(account)$'")
+                  ("account-real-cleared" "%(binary) -CR reg '^%(account)$'")
                   ("bal" "%(binary) -f %(ledger-file) bal")
                   ("reg" "%(binary) -f %(ledger-file) reg")
                   ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
