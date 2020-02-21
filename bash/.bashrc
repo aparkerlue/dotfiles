@@ -93,6 +93,12 @@ EOF
 if [ -f "$HOME/.bash_aliases" ]; then
     . "$HOME/.bash_aliases"
 fi
+if [ -d ~/.aliases.d ]; then
+    for f in ~/.aliases.d/*; do
+        . "$f"
+    done
+    unset f
+fi
 
 # Key bindings
 bind 'SPACE: magic-space'
