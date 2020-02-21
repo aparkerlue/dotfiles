@@ -2,7 +2,7 @@ font:
   size: 11.0
 
   normal:
-    family: Ubuntu Mono
+    family: monospace
     style: Regular
 
   bold:
