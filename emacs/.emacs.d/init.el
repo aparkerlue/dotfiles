@@ -289,7 +289,7 @@
                                (not (or (string= lang "R")
                                         (string= lang "sql")
                                         (string= lang "python"))))
- org-babel-python-command "python3"
+ org-babel-python-command "python"
  org-todo-keywords '(
                      (sequence
                       "TODO(t)"
