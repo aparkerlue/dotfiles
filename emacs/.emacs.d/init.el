@@ -688,6 +688,14 @@ From https://emacs.stackexchange.com/a/35907/8574."
   (add-hook hook 'hs-minor-mode)
   )
 
+;; Key binding for compilation
+(global-set-key [f9]
+                (lambda ()
+                  (interactive)
+                  (compile (format "make -kC %s"
+                                   (locate-dominating-file "." "Makefile")))))
+
+
 ;; Key bindings for macOS
 (global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen)
 ;; [2018-08-29 Wed] C-s-f with left command:
