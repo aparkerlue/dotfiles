@@ -1,6 +1,6 @@
 local({
   ## CRAN repository.
   repos.option <- getOption("repos")
-  repos.option["CRAN"] <- "http://lib.stat.cmu.edu/R/CRAN/"
+  repos.option["CRAN"] <- "https://ftp.osuosl.org/pub/cran/"
   options(repos=repos.option)
 })
