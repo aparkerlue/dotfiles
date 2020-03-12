@@ -1,16 +1,16 @@
 [alias]
-        lg = log --decorate --graph --oneline
+	lg = log --decorate --graph --oneline
 [commit]
 	gpgSign = true
 [core]
 	editor = emacsclient -t
 	pager = less -S
 [credential]
-	helper = store --file ~/.local/share/git/credentials
+	helper = store --file ~/.config/git/credentials
 [gpg]
 	program = gpg
 [include]
-        path = ~/.config/git/user
+	path = ~/.config/git/user
 [push]
 	default = simple
 [pager]
