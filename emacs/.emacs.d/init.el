@@ -11,7 +11,7 @@
  '(inferior-R-args "--no-save")
  '(package-selected-packages
    (quote
-    (zoom-window systemd ace-window chronos color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow csv-mode direnv django-mode docker dockerfile-mode dotenv-mode dracula-theme ecb edit-indirect elpy emamux ess eterm-256color graphviz-dot-mode grip-mode gruber-darker-theme hl-todo htmlize ivy json-reformat ledger-mode magit markdown-mode mmm-jinja2 mmm-mode monokai-theme neotree nginx-mode org org-bullets org-plus-contrib pandoc-mode password-store pinentry pipenv poly-markdown powerline realgud sql-indent super-save svg-clock transpose-frame unicode-fonts web-mode which-key xclip yaml-mode)))
+    (jupyter zoom-window systemd ace-window chronos color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow csv-mode direnv django-mode docker dockerfile-mode dotenv-mode dracula-theme ecb edit-indirect elpy emamux ess eterm-256color graphviz-dot-mode grip-mode gruber-darker-theme hl-todo htmlize ivy json-reformat ledger-mode magit markdown-mode mmm-jinja2 mmm-mode monokai-theme neotree nginx-mode org org-bullets org-plus-contrib pandoc-mode password-store pinentry pipenv poly-markdown powerline realgud sql-indent super-save svg-clock transpose-frame unicode-fonts web-mode which-key xclip yaml-mode)))
  '(safe-local-variable-values
    (quote
     ((eval org-content 2)
@@ -258,7 +258,14 @@
 (require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
 
-;; Org-mode
+;; pyvenv ------------------------------------------------------------
+
+;; Update language aliases after activating a virtual environment.
+(add-hook 'pyvenv-post-activate-hooks
+          'org-babel-jupyter-aliases-from-kernelspecs)
+
+;; Org-mode ----------------------------------------------------------
+
 (require 'org)
 (require 'org-tempo)
 (require 'ox-md nil t)
@@ -283,13 +290,6 @@
  org-log-done 'time
  org-use-property-inheritance nil
  org-use-tag-inheritance t
- org-babel-no-eval-on-ctrl-c-ctrl-c t
- org-confirm-babel-evaluate '(lambda
-                               (lang body)
-                               (not (or (string= lang "R")
-                                        (string= lang "sql")
-                                        (string= lang "python"))))
- org-babel-python-command "python"
  org-todo-keywords '(
                      (sequence
                       "TODO(t)"
@@ -364,6 +364,20 @@
   (define-key org-mode-map (kbd "M-n") 'outline-next-visible-heading)
   (define-key org-mode-map (kbd "M-p") 'outline-previous-visible-heading)
   )
+
+;; Org-babel ---------------------------------------------------------
+
+(setq org-babel-default-header-args:jupyter-python '((:kernel . "python")
+                                                     (:async . "no"))
+      org-babel-no-eval-on-ctrl-c-ctrl-c nil
+      org-babel-python-command "python"
+      org-confirm-babel-evaluate '(lambda
+                                    (lang body)
+                                    (not (or (string= lang "R")
+                                             (string= lang "sql")
+                                             (string= lang "python")
+                                             (string= lang "jupyter-python"))))
+      )
 (org-babel-do-load-languages
  'org-babel-load-languages
  '(
@@ -372,8 +386,10 @@
    (sql . t)
    (R . t)
    (python . t)
+   (jupyter . t)
    )
  )
+(add-to-list 'org-src-lang-modes '("jupyter-python". python))
 
 (setq user/org-agenda-files-default org-agenda-files)
 (put 'user/org-agenda-files
