@@ -11,7 +11,7 @@
  '(inferior-R-args "--no-save")
  '(package-selected-packages
    (quote
-    (jupyter zoom-window systemd ace-window chronos color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow csv-mode direnv django-mode docker dockerfile-mode dotenv-mode dracula-theme ecb edit-indirect elpy emamux ess eterm-256color graphviz-dot-mode grip-mode gruber-darker-theme hl-todo htmlize ivy json-reformat ledger-mode magit markdown-mode mmm-jinja2 mmm-mode monokai-theme neotree nginx-mode org org-bullets org-plus-contrib pandoc-mode password-store pinentry pipenv poly-markdown powerline realgud sql-indent super-save svg-clock transpose-frame unicode-fonts web-mode which-key xclip yaml-mode)))
+    (jupyter zoom-window systemd ace-window chronos color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow csv-mode direnv django-mode docker dockerfile-mode dotenv-mode dracula-theme ecb edit-indirect elpy emamux ess eterm-256color graphviz-dot-mode grip-mode gruber-darker-theme hl-todo htmlize ivy json-reformat ledger-mode magit markdown-mode mmm-jinja2 mmm-mode monokai-theme neotree nginx-mode org org-bullets org-plus-contrib pandoc-mode password-store pinentry poly-markdown powerline realgud sql-indent super-save svg-clock transpose-frame unicode-fonts web-mode which-key xclip yaml-mode)))
  '(safe-local-variable-values
    (quote
     ((eval org-content 2)
@@ -203,9 +203,6 @@
 ;; dotenv-mode
 (require 'dotenv-mode)
 
-;; pipenv.el
-(add-hook 'python-mode-hook #'pipenv-mode)
-
 ;; Elpy
 (require 'elpy)
 (setq elpy-rpc-ignored-buffer-size (* 2 102400)
@@ -218,9 +215,6 @@
 (add-to-list 'python-shell-completion-native-disabled-interpreters
              "jupyter")
 (elpy-enable)
-
-;; GUD
-;; (setq gud-pdb-command-name "pipenv run python -m pdb")
 
 ;; ESS
 (require 'ess)
