@@ -11,7 +11,7 @@
  '(inferior-R-args "--no-save")
  '(package-selected-packages
    (quote
-    (jupyter zoom-window systemd ace-window chronos color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow csv-mode direnv django-mode docker dockerfile-mode dotenv-mode dracula-theme ecb edit-indirect elpy emamux ess eterm-256color graphviz-dot-mode grip-mode gruber-darker-theme hl-todo htmlize ivy json-reformat ledger-mode magit markdown-mode mmm-jinja2 mmm-mode monokai-theme neotree nginx-mode org org-bullets org-plus-contrib pandoc-mode password-store pinentry poly-markdown powerline realgud sql-indent super-save svg-clock transpose-frame unicode-fonts web-mode which-key xclip yaml-mode)))
+    (jupyter zoom-window systemd ace-window chronos color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow csv-mode direnv django-mode docker dockerfile-mode dotenv-mode dracula-theme ecb edit-indirect elpy emamux ess eterm-256color graphviz-dot-mode grip-mode gruber-darker-theme hl-todo htmlize ivy json-reformat ledger-mode magit markdown-mode mmm-jinja2 mmm-mode monokai-theme neotree nginx-mode org org-plus-contrib pandoc-mode password-store pinentry poly-markdown powerline realgud sql-indent super-save svg-clock transpose-frame unicode-fonts web-mode which-key xclip yaml-mode)))
  '(safe-local-variable-values
    (quote
     ((eval org-content 2)
@@ -409,10 +409,6 @@
                          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
                          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f")
  )
-
-;; org-bullets
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 ;; Org-mode: Bimodal cycling
 ;; https://emacs.stackexchange.com/questions/36232/org-mode-property-to-make-subtree-visibility-bimodal
