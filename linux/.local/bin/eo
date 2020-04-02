@@ -1,0 +1,8 @@
+#!/bin/sh
+# -*- mode: Shell-script; coding: utf-8; -*-
+if [ $# -eq 0 ]; then
+    echo "Usage: $(basename $0) FILE"
+fi
+for arg in "$@"; do
+    evince "$arg" >/dev/null 2>&1 &
+done
