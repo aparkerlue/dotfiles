@@ -6,11 +6,15 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 pyenv-disable() {
-    PATH=$(echo "$PATH" | sed -E "s#(^|:)$HOME/.pyenv/shims($|:)##")
+    PATH=$(echo "$PATH" \
+               | tr : '\n' \
+               | sed "/^$(echo $HOME | sed 's#/#\\/#g')\/.pyenv\//d" \
+               | paste -sd : -
+        )
 }
 
 pyenv-enable() {
-    if ! echo "$PATH" | grep -Eq "(^|:)$HOME/.pyenv/shims($|:)"; then
-        PATH="$HOME/.pyenv/shims:$PATH"
+    if ! echo "$PATH" | grep -Eq "(^|:)$HOME/.pyenv/"; then
+        PATH="$HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH"
     fi
 }
