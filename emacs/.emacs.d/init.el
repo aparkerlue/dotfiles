@@ -280,8 +280,10 @@
  org-edit-src-content-indentation 0
  org-enforce-todo-dependencies t
  org-enforce-todo-checkbox-dependencies nil
+ org-image-actual-width '(400)
  org-log-into-drawer t
  org-log-done 'time
+ org-startup-with-inline-images t
  org-use-property-inheritance nil
  org-use-tag-inheritance t
  org-todo-keywords '(
