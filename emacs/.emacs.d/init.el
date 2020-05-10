@@ -290,6 +290,7 @@
                       "PROJ(P)"
                       "PEND(p)"
                       "WAIT(w)"
+                      "HOLD(h)"
                       "SDMB(m)"
                       "|"
                       "CANC(c)"
