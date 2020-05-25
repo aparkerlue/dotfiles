@@ -202,21 +202,27 @@
 
 ;; dotenv-mode
 (require 'dotenv-mode)
-
-;; Elpy
+
+;; Elpy --------------------------------------------------------------
 (require 'elpy)
 (setq elpy-rpc-ignored-buffer-size (* 2 102400)
       elpy-rpc-python-command "python3"
-      elpy-shell-use-project-root nil
-      python-shell-interpreter "jupyter"
+      elpy-shell-starting-directory 'project-root
+      )
+(setq python-shell-interpreter "jupyter"
       python-shell-interpreter-args "console --simple-prompt"
       python-shell-prompt-detect-failure-warning nil
       )
-(add-to-list 'python-shell-completion-native-disabled-interpreters
-             "jupyter")
+(add-to-list 'python-shell-completion-native-disabled-interpreters "jupyter")
 (elpy-enable)
 
-;; ESS
+;; Use black to format code.
+(define-key elpy-refactor-map (kbd "f")
+  (cons (format "%sormat code"
+                (propertize "f" 'face 'bold))
+        'elpy-black-fix-code))
+
+;; ESS ---------------------------------------------------------------
 (require 'ess)
 (setq ess-ask-for-ess-directory nil)
 
@@ -247,11 +253,11 @@
 ;; which-key
 (require 'which-key)
 (which-key-mode)
-
-;; Magit
+
+;; Magit -------------------------------------------------------------
 (require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
-
+
 ;; pyvenv ------------------------------------------------------------
 
 ;; Update language aliases after activating a virtual environment.
@@ -280,9 +286,15 @@
  org-edit-src-content-indentation 0
  org-enforce-todo-dependencies t
  org-enforce-todo-checkbox-dependencies nil
+ org-fontify-whole-heading-line t
+ org-fontify-done-headline t
+ org-fontify-quote-and-verse-blocks t
+ org-hide-emphasis-markers t
  org-image-actual-width '(400)
  org-log-into-drawer t
  org-log-done 'time
+ org-pretty-entities nil
+ org-startup-indented nil
  org-startup-with-inline-images t
  org-use-property-inheritance nil
  org-use-tag-inheritance t
@@ -402,7 +414,10 @@
     )
   )
 (add-hook 'org-mode-hook
-          (lambda () (local-set-key (kbd "C-;") 'user/update-org-agenda-files)))
+          (lambda () (progn
+                       ;; (setq-local line-spacing 0.1)
+                       (local-set-key (kbd "C-;") 'user/update-org-agenda-files)
+                       )))
 
 ;; Org-mode: LaTeX
 (add-to-list 'org-latex-packages-alist '("" "minted"))
@@ -632,7 +647,15 @@ From https://emacs.stackexchange.com/a/35907/8574."
 ;; emamux
 (require 'emamux)
 (global-set-key (kbd "C-z") emamux:keymap)
-
+
+;; Visual Line mode --------------------------------------------------
+(dolist (hook '(markdown-mode-hook
+                org-mode-hook
+                )
+              )
+  (add-hook hook 'visual-line-mode)
+  )
+
 ;; Code
 (dolist (hook '(c-mode-hook
                 conf-mode-hook
@@ -701,6 +724,9 @@ From https://emacs.stackexchange.com/a/35907/8574."
   (add-hook hook 'hs-minor-mode)
   )
 
+;; variable-pitch-mode
+;; (add-hook 'org-mode-hook 'variable-pitch-mode)
+
 ;; Key binding for compilation
 (global-set-key [f9]
                 (lambda ()
@@ -732,6 +758,6 @@ From https://emacs.stackexchange.com/a/35907/8574."
 (set-register ?l (cons 'file (expand-file-name "lists.org" org-directory)))
 (set-register ?m (cons 'file (expand-file-name "maybe.org" org-directory)))
 (set-register ?n (cons 'file (expand-file-name "notes.org" org-directory)))
-(set-register ?p (cons 'file (expand-file-name "projects.org" org-directory)))
+(set-register ?p (cons 'file (expand-file-name "projects/projects.org" org-directory)))
 (set-register ?r (cons 'file (expand-file-name "reading.org" org-directory)))
 (set-register ?s (cons 'file (expand-file-name "scratch.org" org-directory)))
