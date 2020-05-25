@@ -2,19 +2,31 @@
 
 (message (current-time-string))
 
+;; Set register for the user init file
+(set-register ?I (cons 'file user-init-file))
+
+;; Emacs load paths --------------------------------------------------
+
+(add-to-list 'load-path "~/.local/share/emacs/lisp")
+(add-to-list 'custom-theme-load-path "~/.local/share/emacs/etc/themes")
+
+;; Customize ---------------------------------------------------------
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(Man-notify-method (quote pushy))
+ '(frame-brackground-mode (quote dark))
  '(inferior-R-args "--no-save")
  '(package-selected-packages
    (quote
-    (org-download ssh-config-mode jupyter zoom-window systemd ace-window chronos color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow csv-mode direnv django-mode docker dockerfile-mode dotenv-mode dracula-theme ecb edit-indirect elpy emamux ess eterm-256color graphviz-dot-mode grip-mode gruber-darker-theme hl-todo htmlize ivy json-reformat ledger-mode magit markdown-mode mmm-jinja2 mmm-mode monokai-theme neotree nginx-mode org org-plus-contrib pandoc-mode password-store pinentry poly-markdown powerline realgud sql-indent super-save svg-clock transpose-frame unicode-fonts web-mode which-key xclip yaml-mode)))
+    (gruvbox-theme spacemacs-theme org-bullets org-download ssh-config-mode jupyter zoom-window systemd ace-window chronos color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow csv-mode direnv django-mode docker dockerfile-mode dotenv-mode dracula-theme ecb edit-indirect elpy emamux ess eterm-256color graphviz-dot-mode grip-mode gruber-darker-theme hl-todo htmlize ivy json-reformat ledger-mode magit markdown-mode mmm-jinja2 mmm-mode monokai-theme neotree nginx-mode org org-plus-contrib pandoc-mode password-store pinentry poly-markdown powerline realgud sql-indent super-save svg-clock transpose-frame unicode-fonts web-mode which-key xclip yaml-mode)))
  '(safe-local-variable-values
    (quote
     ((eval org-content 2)
+     (eval org-content 4)
      (make-backup-files)
      (org-confirm-babel-evaluate)))))
 (custom-set-faces
@@ -23,7 +35,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
+
+;; Package.el --------------------------------------------------------
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -47,27 +60,17 @@
 (unless package-archive-contents
   (package-refresh-contents))
 (package-install-selected-packages)
+
+;; Theme -------------------------------------------------------------
 
-;; Set register for the user init file
-(set-register ?I (cons 'file user-init-file))
+(load-theme 'gruber-darker t)
 
-;; Directories for backup and auto-save files
-(let ((backup-directory (concat user-emacs-directory "backup"))
-      (auto-save-directory (concat user-emacs-directory "auto-save")))
-  (dolist (dir (list backup-directory auto-save-directory))
-    (when (not (file-directory-p dir))
-      (make-directory dir t)))
-  (setq
-   backup-directory-alist `(("." . ,backup-directory))
-   auto-save-file-name-transforms `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'"
-                                     ,(concat auto-save-directory "/\\2") t)
-                                    ("\\([^/]*/\\)*\\([^/]*\\)"
-                                     ,(concat auto-save-directory "/\\2") t)
-                                    )
-   )
-  )
+(load-theme 'gruvbox t)
 
-;; General
+;; (load-theme 'spacemacs-light t)
+;; (load-theme 'user-org t)
+
+;; General -----------------------------------------------------------
 (setq
  make-backup-files t
  auto-save-default t
@@ -95,6 +98,22 @@
     (global-set-key (kbd "<mouse-4>") (kbd "<wheel-up>"))
     (global-set-key (kbd "<mouse-5>") (kbd "<wheel-down>"))
     )
+  )
+
+;; Directories for backup and auto-save files
+(let ((backup-directory (concat user-emacs-directory "backup"))
+      (auto-save-directory (concat user-emacs-directory "auto-save")))
+  (dolist (dir (list backup-directory auto-save-directory))
+    (when (not (file-directory-p dir))
+      (make-directory dir t)))
+  (setq
+   backup-directory-alist `(("." . ,backup-directory))
+   auto-save-file-name-transforms `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'"
+                                     ,(concat auto-save-directory "/\\2") t)
+                                    ("\\([^/]*/\\)*\\([^/]*\\)"
+                                     ,(concat auto-save-directory "/\\2") t)
+                                    )
+   )
   )
 
 ;; Mouse-Wheel mode
@@ -139,12 +158,12 @@
 (require 'vc)
 (setq vc-follow-symlinks t)
 
-;; https://www.emacswiki.org/emacs/UnicodeFonts
+;; unicode-fonts (https://github.com/rolandwalker/unicode-fonts)
 (require 'unicode-fonts)
-(setq unicode-fonts-block-font-mapping
-      '(("Emoticons"
-         ("Apple Color Emoji" "Symbola" "Quivira")))
-      unicode-fonts-fontset-names '("fontset-default"))
+;(setq unicode-fonts-block-font-mapping
+;      '(("Emoticons"
+;         ("Noto Color Emoji" "Apple Color Emoji" "Symbola" "Quivira")))
+;      unicode-fonts-fontset-names '("fontset-default"))
 (unicode-fonts-setup)
 
 ;; helm
@@ -172,9 +191,6 @@
 
 ;; ace-window
 (global-set-key (kbd "M-o") 'ace-window)
-
-;; Theme
-(load-theme 'gruber-darker t)
 
 ;; xclip: use xclip to copy&paste
 (xclip-mode)
@@ -263,7 +279,20 @@
 ;; Update language aliases after activating a virtual environment.
 (add-hook 'pyvenv-post-activate-hooks
           'org-babel-jupyter-aliases-from-kernelspecs)
+
+;; org-bullets -------------------------------------------------------
 
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+;; Set bullet to zero-width space
+;; (setq org-bullets-bullet-list '("\u200b"))
+
+;; org-pretty-table --------------------------------------------------
+
+(load-library "org-pretty-table")
+(require 'org-pretty-table)
+;; (add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
+
 ;; Org-mode ----------------------------------------------------------
 
 (require 'org)
@@ -374,6 +403,11 @@
   (define-key org-mode-map (kbd "M-p") 'outline-previous-visible-heading)
   )
 
+;; Replace bullet markers in Org-mode lists.
+(font-lock-add-keywords 'org-mode
+                        '(("^ *\\([-]\\) "
+                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
 ;; Org-babel ---------------------------------------------------------
 
 (setq org-babel-default-header-args:jupyter-python '((:kernel . "python")
@@ -460,8 +494,8 @@
 ;; org-download
 (require 'org-download)
 (add-hook 'dired-mode-hook 'org-download-enable)
-
-;; Ledger-mode
+
+;; Ledger-mode -------------------------------------------------------
 (require 'ledger-mode nil 'noerror)
 (if (featurep 'ledger-mode)
     (add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode)))
