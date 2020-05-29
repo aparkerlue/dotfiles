@@ -684,7 +684,6 @@ From https://emacs.stackexchange.com/a/35907/8574."
 
 ;; Visual Line mode --------------------------------------------------
 (dolist (hook '(markdown-mode-hook
-                org-mode-hook
                 )
               )
   (add-hook hook 'visual-line-mode)
