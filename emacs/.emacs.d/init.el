@@ -176,6 +176,17 @@
 ;; Ivy
 (ivy-mode 1)
 (global-set-key (kbd "C-c n") 'counsel-fzf)
+;; Redefine ivy-switch-buffer to ignore other-buffer's preference for
+;; non-visible buffers.
+(defun ivy-switch-buffer ()
+  "Switch to another buffer."
+  (interactive)
+  (ivy-read "Switch to buffer: " #'internal-complete-buffer
+            :keymap ivy-switch-buffer-map
+            :preselect (buffer-name (other-buffer (current-buffer) t))
+            :action #'ivy--switch-buffer-action
+            :matcher #'ivy--switch-buffer-matcher
+            :caller 'ivy-switch-buffer))
 
 ;; direnv
 (require 'direnv)
