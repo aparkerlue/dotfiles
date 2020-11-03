@@ -116,11 +116,18 @@
    )
   )
 
+;; misc
+(require 'misc)
+;; Move forward until encountering the beginning of a word.
+(global-set-key (kbd "M-F") 'forward-to-word)
+;; Move backward until encountering the end of a word.
+(global-set-key (kbd "M-B") 'backward-to-word)
+
 ;; Mouse-Wheel mode
 (mouse-wheel-mode)
 (setq mouse-wheel-follow-mouse t
-      mouse-wheel-scroll-amount '(5 ((shift) . 1) ((control)))
-      mouse-wheel-progressive-speed t)
+      mouse-wheel-scroll-amount '(2 ((shift) . 1) ((control) . nil))
+      mouse-wheel-progressive-speed nil)
 
 ;; Update time stamp before saving.
 (setq time-stamp-format "%:y-%02m-%02d %3a %02H:%02M:%02S %Z")
