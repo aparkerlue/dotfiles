@@ -1,10 +1,6 @@
-# -*- mode: Shell-script; coding: utf-8; -*-
+# -*- mode: shell-script; sh-shell: bash; coding: utf-8; -*-
 
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+# gpg ----------------------------------------------------------------
 
 refresh-gpg-agent() {
     export GPG_TTY="$(tty)"
@@ -182,14 +178,10 @@ beorg="$HOME/Dropbox/org"
 # GnuPG
 gpgid="0xA5C2FE4660CF2A3D"
 
-# macOS --------------------------------------------------------------
+# lesspipe -----------------------------------------------------------
 
-# brew info bash-completion@2
-if type brew &>/dev/null \
-        && [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]]; then
-    export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
-    . "/usr/local/etc/profile.d/bash_completion.sh"
+# lesspipe: make less more friendly for non-text input files, see
+# lesspipe(1).
+if type &>/dev/null lesspipe; then
+    eval "$(SHELL=/bin/sh lesspipe)"
 fi
-
-# iCloud Drive
-icloud="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
