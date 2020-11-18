@@ -7,7 +7,7 @@
 
 ;; Emacs load paths --------------------------------------------------
 
-(add-to-list 'load-path "~/.local/share/emacs/lisp")
+;; (add-to-list 'load-path "~/.local/share/emacs/lisp")
 (add-to-list 'custom-theme-load-path "~/.local/share/emacs/etc/themes")
 
 ;; Customize ---------------------------------------------------------
@@ -22,10 +22,11 @@
  '(inferior-R-args "--no-save")
  '(package-selected-packages
    (quote
-    (gruvbox-theme spacemacs-theme org-bullets org-download ssh-config-mode jupyter zoom-window systemd ace-window chronos color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow csv-mode direnv django-mode docker dockerfile-mode dotenv-mode dracula-theme ecb edit-indirect elpy emamux ess eterm-256color graphviz-dot-mode grip-mode gruber-darker-theme hl-todo htmlize ivy json-reformat ledger-mode magit markdown-mode mmm-jinja2 mmm-mode monokai-theme neotree nginx-mode org org-plus-contrib pandoc-mode password-store pinentry poly-markdown powerline realgud sql-indent super-save svg-clock transpose-frame unicode-fonts web-mode which-key xclip yaml-mode)))
+    (ledger-mode rust-mode e2wm cmake-mode gitignore-mode gruvbox-theme spacemacs-theme org-bullets org-download ssh-config-mode jupyter zoom-window systemd ace-window chronos color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow csv-mode direnv django-mode docker dockerfile-mode dotenv-mode dracula-theme ecb edit-indirect elpy emamux ess eterm-256color graphviz-dot-mode grip-mode gruber-darker-theme hl-todo htmlize ivy json-reformat magit markdown-mode mmm-jinja2 mmm-mode monokai-theme neotree nginx-mode org org-plus-contrib pandoc-mode password-store pinentry poly-markdown powerline realgud sql-indent super-save transpose-frame unicode-fonts web-mode which-key xclip yaml-mode)))
  '(safe-local-variable-values
    (quote
-    ((eval org-content 2)
+    ((eval org-content 3)
+     (eval org-content 2)
      (eval org-content 4)
      (make-backup-files)
      (org-confirm-babel-evaluate)))))
@@ -155,12 +156,34 @@
  browse-url-browser-function 'browse-url-xdg-open
  )
 
+;; Mode line ---------------------------------------------------------
+
 ;; powerline
 (require 'powerline)
 (powerline-default-theme)
 
-;; Hi Lock mode
+;; (setq mode-line-format '("%e"
+;;                          mode-line-front-space
+;;                          mode-line-mule-info
+;;                          mode-line-client
+;;                          mode-line-modified
+;;                          mode-line-remote
+;;                          mode-line-frame-identification
+;;                          mode-line-buffer-identification
+;;                          "   "
+;;                          mode-line-position
+;;                          (vc-mode vc-mode)
+;;                          "  "
+;;                          mode-line-modes
+;;                          mode-line-misc-info
+;;                          mode-line-end-spaces))
+
+;; Hi Lock mode ------------------------------------------------------
 (global-hi-lock-mode 1)
+
+;; https://github.com/jorgenschaefer/emacs-tdd/ ----------------------
+
+(when (not (require 'tdd nil t)) (message "Warning: Failed to load tdd"))
 
 (require 'vc)
 (setq vc-follow-symlinks t)
@@ -209,6 +232,9 @@
 
 ;; ace-window
 (global-set-key (kbd "M-o") 'ace-window)
+;; Use `;' to flip to the previous window. See
+;; https://github.com/abo-abo/ace-window/issues/125 for details.
+;; (add-to-list 'aw-dispatch-alist '(?\; aw-flip-window))
 
 ;; xclip: use xclip to copy&paste
 (xclip-mode)
@@ -236,6 +262,10 @@
 
 ;; dotenv-mode
 (require 'dotenv-mode)
+
+;; change-log-mode
+(setq change-log-version-info-enabled t)
+
 
 ;; Elpy --------------------------------------------------------------
 (require 'elpy)
@@ -243,11 +273,14 @@
       elpy-rpc-python-command "python3"
       elpy-shell-starting-directory 'project-root
       )
-(setq python-shell-interpreter "jupyter"
-      python-shell-interpreter-args "console --simple-prompt"
-      python-shell-prompt-detect-failure-warning nil
-      )
-(add-to-list 'python-shell-completion-native-disabled-interpreters "jupyter")
+(setq python-shell-interpreter "python"
+      python-shell-interpreter-args "-i")
+;; (setq python-shell-interpreter "jupyter"
+;;       python-shell-interpreter-args "console --simple-prompt"
+;;       python-shell-prompt-detect-failure-warning nil
+;;       )
+;; (add-to-list 'python-shell-completion-native-disabled-interpreters
+;;              "jupyter")
 (elpy-enable)
 
 ;; Use black to format code.
@@ -255,12 +288,24 @@
   (cons (format "%sormat code"
                 (propertize "f" 'face 'bold))
         'elpy-black-fix-code))
+
+;; Make Jupyter use the default matplotlib backend. See
+;; https://github.com/jorgenschaefer/elpy/issues/1769 for details.
+(defun elpy-shell--use-interactive-plots-in-jupyter ()
+  "Make sure we use an interactive backend with Jupyter"
+  (when (not (null (string-match "jupyter" python-shell-interpreter)))
+    (let ((process (python-shell-get-process)))
+      (python-shell-send-string-no-output "%matplotlib")
+      process)))
+(add-hook 'python-shell-first-prompt-hook
+          'elpy-shell--use-interactive-plots-in-jupyter t)
+
 
 ;; ESS ---------------------------------------------------------------
-(require 'ess)
+(require 'ess-r-mode)
 (setq ess-ask-for-ess-directory nil)
-
-;; EasyPG
+
+;; EasyPG ------------------------------------------------------------
 (require 'epa-file)
 (setq
  epa-armor nil
@@ -294,9 +339,13 @@
 
 ;; pyvenv ------------------------------------------------------------
 
+;; FIXME: Need to add jupyter to org-babel-load-languages in order to
+;; do this.
+;;
 ;; Update language aliases after activating a virtual environment.
-(add-hook 'pyvenv-post-activate-hooks
-          'org-babel-jupyter-aliases-from-kernelspecs)
+;; (add-hook 'pyvenv-post-activate-hooks
+;;           'org-babel-jupyter-aliases-from-kernelspecs
+;;           )
 
 ;; org-bullets -------------------------------------------------------
 
@@ -304,12 +353,6 @@
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 ;; Set bullet to zero-width space
 ;; (setq org-bullets-bullet-list '("\u200b"))
-
-;; org-pretty-table --------------------------------------------------
-
-(load-library "org-pretty-table")
-(require 'org-pretty-table)
-;; (add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
 
 ;; Org-mode ----------------------------------------------------------
 
@@ -336,7 +379,7 @@
  org-fontify-whole-heading-line t
  org-fontify-done-headline t
  org-fontify-quote-and-verse-blocks t
- org-hide-emphasis-markers t
+ org-hide-emphasis-markers nil
  org-image-actual-width '(400)
  org-log-into-drawer t
  org-log-done 'time
@@ -396,10 +439,15 @@
                           "* TODO %?\n%U\n%i"
                           )
                          ("j" "Journal" entry
-                          (file+datetree ,(expand-file-name "Journal/Journal.org.gpg" org-directory))
+                          (file+datetree ,(expand-file-name "journal.org.gpg" org-directory))
                           "* %?\n%i"
                           )
                          )
+ org-link-frame-setup '((vm . vm-visit-folder-other-frame)
+                        (vm-imap . vm-visit-imap-folder-other-frame)
+                        (gnus . org-gnus-no-new-news)
+                        (file . find-file)
+                        (wl . wl-other-frame))
  org-outline-path-complete-in-steps nil
  org-refile-targets `(
                       (org-agenda-files :maxlevel . 2)
@@ -413,6 +461,7 @@
                  ("\\.x?html?\\'" . default)
                  ("\\.pdf\\'" . "xdg-open \"%s\"")
                  ("\\.pdf::\\([0-9]+\\)\\'" . "evince \"%s\" -p %1")
+                 ("\\.swf\\'" . "gnash \"%s\"")
                  )
  org-tags-column -77
  )
@@ -428,16 +477,16 @@
 
 ;; Org-babel ---------------------------------------------------------
 
-(setq org-babel-default-header-args:jupyter-python '((:kernel . "python")
-                                                     (:async . "no"))
-      org-babel-no-eval-on-ctrl-c-ctrl-c nil
+(setq org-babel-no-eval-on-ctrl-c-ctrl-c nil
+      ;; org-babel-default-header-args:jupyter-python '((:kernel . "python")
+      ;;                                                (:async . "no"))
       org-babel-python-command "python"
       org-confirm-babel-evaluate '(lambda
                                     (lang body)
                                     (not (or (string= lang "R")
                                              (string= lang "sql")
-                                             (string= lang "python")
-                                             (string= lang "jupyter-python"))))
+                                             (string= lang "jupyter-python")
+                                             (string= lang "python"))))
       )
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -447,7 +496,9 @@
    (sql . t)
    (R . t)
    (python . t)
-   (jupyter . t)
+   ;; FIXME: The following line causes an Emacs error on startup:
+   ;; Error retrieving kernelspecs: (file-missing "Searching for program" "No such file or directory" "jupyter")
+   ;; (jupyter . t)
    )
  )
 (add-to-list 'org-src-lang-modes '("jupyter-python". python))
@@ -478,6 +529,7 @@
  org-latex-pdf-process '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
                          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
                          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+ org-latex-prefer-user-labels t
  )
 
 ;; Org-mode: Bimodal cycling
@@ -522,6 +574,8 @@
  ledger-highlight-xact-under-point nil
  ledger-clear-whole-transactions t
  ledger-post-amount-alignment-column 64
+ ledger-report-auto-refresh t
+ ledger-report-auto-refresh-sticky-cursor t
  ledger-reports (quote
                  (("account-real" "%(binary) -R reg '^%(account)$'")
                   ("account-real-cleared" "%(binary) -CR reg '^%(account)$'")
@@ -534,7 +588,9 @@
           (lambda ()
             (setq-local tab-always-indent 'complete)
             (setq-local completion-cycle-threshold t)
-            (setq-local ledger-complete-in-steps t)))
+            (setq-local ledger-complete-in-steps t)
+            (setq-local comment-column 48)
+            (setq-local comment-fill-column 96)))
 (defun apl-insert-date (prefix)
   "Insert the current date. With prefix-argument, use dd.mm.yyyy
    format. With two prefix arguments, write out the day and month
@@ -547,7 +603,10 @@
         (system-time-locale "de_DE"))
     (insert (format-time-string format))))
 (with-eval-after-load "ledger-mode"
-  (define-key ledger-mode-map (kbd "C-c d") 'apl-insert-date))
+  (define-key ledger-mode-map (kbd "C-c d") 'apl-insert-date)
+  (define-key ledger-mode-map (kbd "M-N") 'ledger-navigate-next-uncleared)
+  (define-key ledger-mode-map (kbd "M-P") 'ledger-navigate-previous-uncleared)
+  )
 
 ;; sql-indent
 (require 'sql-indent)
@@ -690,6 +749,82 @@ From https://emacs.stackexchange.com/a/35907/8574."
   (mapc 'kill-buffer (-remove 'buffer-backed-by-file-p (buffer-list)))
   )
 
+(defun date-add-month (x)
+  (let* ((time-components (parse-time-string (concat x " 00:00:00")))
+         (internal-time (apply #'encode-time time-components))
+         ;; (year (nth 5 internal-time))
+         ;; (month (nth 4 internal-time))
+         ;; (days-this-month (ledger-schedule-days-in-month 3 year))
+         ;; (seconds-this-month (* (* 24 (* 60 60)) days-this-month))
+         )
+    internal-time
+    ;; (format-time-string "%Y-%m-%d"
+    ;;                     (time-add internal-time seconds-this-month))
+    )
+  )
+(defun date-add-month (x)
+  "Return the ISO date for next month."
+  (let* ((time-components (parse-time-string (concat x " 00:00:00")))
+         (internal-time (apply #'encode-time time-components))
+         (month (nth 4 time-components))
+         (year (nth 5 time-components))
+         (days-this-month (ledger-schedule-days-in-month month year))
+         (seconds-this-month (* (* 24 (* 60 60)) days-this-month))
+         (time-month-seconds (seconds-to-time seconds-this-month))
+         (next-month (time-add internal-time time-month-seconds))
+         )
+    (format-time-string "%Y-%m-%d" next-month)
+    )
+  )
+(defun date-subtract-month (x)
+  "Return the ISO date for last month."
+  (let* ((time-components (parse-time-string (concat x " 00:00:00")))
+         (internal-time (apply #'encode-time time-components))
+         (month (nth 4 time-components))
+         (year (nth 5 time-components))
+         (month-last (if (= month 1) 12 (- month 1)))
+         (year-last (if (> month-last month) (- year 1) year))
+         (days-last-month (ledger-schedule-days-in-month month-last year-last))
+         (seconds-last-month (* (* 24 (* 60 60)) days-last-month))
+         (time-month-seconds (seconds-to-time seconds-last-month))
+         (last-month (time-subtract internal-time time-month-seconds))
+         )
+    (format-time-string "%Y-%m-%d" last-month)
+    )
+  )
+(defun date-add-month-interactive ()
+  (interactive)
+  (let ((pos (point)))
+    (search-backward-regexp "\\(^\\|[[:space:]]\\)[[:digit:]]")
+    (set-mark-command nil)
+    (search-forward-regexp "[[:digit:]]\\{4\\}-[[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}")
+    (deactivate-mark)
+    (let ((beg (mark))
+          (end (point))
+          (selection (buffer-substring-no-properties (mark) (point))))
+      (delete-region beg end)
+      (insert (date-add-month selection))
+      )
+    (goto-char pos)
+    )
+  )
+(defun date-subtract-month-interactive ()
+  (interactive)
+  (let ((pos (point)))
+    (search-backward-regexp "\\(^\\|[[:space:]]\\)[[:digit:]]")
+    (set-mark-command nil)
+    (search-forward-regexp "[[:digit:]]\\{4\\}-[[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}")
+    (deactivate-mark)
+    (let ((beg (mark))
+          (end (point))
+          (selection (buffer-substring-no-properties (mark) (point))))
+      (delete-region beg end)
+      (insert (date-subtract-month selection))
+      )
+    (goto-char pos)
+    )
+  )
+
 ;; Unbind macOS Command-key sequences
 (global-unset-key (kbd "s-q"))          ; save-buffers-kill-emacs
 (global-unset-key (kbd "s-w"))          ; delete-frame
@@ -702,6 +837,7 @@ From https://emacs.stackexchange.com/a/35907/8574."
 
 ;; Visual Line mode --------------------------------------------------
 (dolist (hook '(markdown-mode-hook
+                rst-mode-hook
                 )
               )
   (add-hook hook 'visual-line-mode)
@@ -721,8 +857,10 @@ From https://emacs.stackexchange.com/a/35907/8574."
                 emacs-lisp-mode-hook
                 ess-mode-hook
                 nxml-mode-hook
+                org-mode-hook
                 python-mode-hook
                 js-mode-hook
+                rust-mode-hook
                 sh-mode-hook
                 sql-mode-hook
                 yaml-mode-hook
@@ -798,7 +936,7 @@ From https://emacs.stackexchange.com/a/35907/8574."
 ;; Registers
 (set-register ?F (cons 'file (expand-file-name "Family/Family.org.gpg" org-directory)))
 (set-register ?H (cons 'file (expand-file-name "Health/Health.org.gpg" org-directory)))
-(set-register ?J (cons 'file (expand-file-name "Journal/Journal.org.gpg" org-directory)))
+(set-register ?J (cons 'file (expand-file-name "journal.org.gpg" org-directory)))
 (set-register ?L (cons 'file "~/.local/share/ledger/journal.ledger"))
 (set-register ?N (cons 'file (expand-file-name "Notes/Notes.org.gpg" org-directory)))
 (set-register ?P (cons 'file (expand-file-name "Passphrases/Passphrases.org.gpg" org-directory)))
@@ -809,6 +947,6 @@ From https://emacs.stackexchange.com/a/35907/8574."
 (set-register ?l (cons 'file (expand-file-name "lists.org" org-directory)))
 (set-register ?m (cons 'file (expand-file-name "maybe.org" org-directory)))
 (set-register ?n (cons 'file (expand-file-name "notes.org" org-directory)))
-(set-register ?p (cons 'file (expand-file-name "projects/projects.org" org-directory)))
+(set-register ?p (cons 'file (expand-file-name "projects.org" org-directory)))
 (set-register ?r (cons 'file (expand-file-name "reading.org" org-directory)))
 (set-register ?s (cons 'file (expand-file-name "scratch.org" org-directory)))
