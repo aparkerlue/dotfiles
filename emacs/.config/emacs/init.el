@@ -300,6 +300,8 @@
 (add-hook 'python-shell-first-prompt-hook
           'elpy-shell--use-interactive-plots-in-jupyter t)
 
+(elpy-set-test-runner 'elpy-test-pytest-runner)
+
 
 ;; ESS ---------------------------------------------------------------
 (require 'ess-r-mode)
