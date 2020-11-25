@@ -266,6 +266,22 @@
 ;; change-log-mode
 (setq change-log-version-info-enabled t)
 
+;; multiple-cursors
+;; https://github.com/magnars/multiple-cursors.el
+(require 'multiple-cursors)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+;; visual-regexp-steroids
+;; https://github.com/benma/visual-regexp-steroids.el
+(require 'visual-regexp-steroids)
+(define-key global-map (kbd "C-c r") 'vr/replace)
+(define-key global-map (kbd "C-c q") 'vr/query-replace)
+(define-key global-map (kbd "C-c m") 'vr/mc-mark)
+(define-key esc-map (kbd "C-r") 'vr/isearch-backward)
+(define-key esc-map (kbd "C-s") 'vr/isearch-forward)
+
 
 ;; Elpy --------------------------------------------------------------
 (require 'elpy)
