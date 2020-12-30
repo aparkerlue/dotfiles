@@ -25,3 +25,5 @@ if [ -x $pygmentize ]; then
     alias pless="LESSOPEN='| ${pygmentize} %s' less -R"
 fi
 unset pygmentize
+
+alias scu='systemctl --user'
