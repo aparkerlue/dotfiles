@@ -1,9 +1,0 @@
-[Unit]
-Description=restic backup service
-
-[Service]
-Type=simple
-ExecStart=%h/.local/bin/restic-backup-job
-
-[Install]
-WantedBy=default.target
