@@ -112,3 +112,14 @@ if [ -d ~/.profile.d ]; then
     done
 fi
 unset -v f
+
+
+# ~/.bashrc ----------------------------------------------------------
+
+# If the shell is
+if [ -n "$BASH" ] &&              # Bash,
+       [ "${-#*i}" != "$-" ] &&   # an interactive shell, and
+       shopt -q login_shell; then # a login shell,
+    # then source ~/.bashrc.
+    . ~/.bashrc
+fi
