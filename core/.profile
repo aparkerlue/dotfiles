@@ -116,10 +116,18 @@ unset -v f
 
 # ~/.bashrc ----------------------------------------------------------
 
-# If the shell is
-if [ -n "$BASH" ] &&              # Bash,
-       [ "${-#*i}" != "$-" ] &&   # an interactive shell, and
-       shopt -q login_shell; then # a login shell,
-    # then source ~/.bashrc.
+is_bash() {
+    [ -n "$BASH" ]
+}
+
+is_interactive_shell() {
+    [ "${-#*i}" != "$-" ]
+}
+
+is_login_shell() {
+    shopt -q login_shell
+}
+
+if is_bash && is_interactive_shell && is_login_shell; then
     . ~/.bashrc
 fi
