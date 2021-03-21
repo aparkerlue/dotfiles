@@ -1,5 +1,8 @@
 # -*- mode: shell-script; sh-shell: bash; coding: utf-8; -*-
 
+# If not running interactively, don't do anything.
+[ -z "$PS1" ] && return
+
 # gpg ----------------------------------------------------------------
 
 refresh-gpg-agent() {

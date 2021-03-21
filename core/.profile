@@ -114,14 +114,17 @@ fi
 unset -v f
 
 
-# ~/.bashrc ----------------------------------------------------------
+# Conditionally invoke ~/.bashrc -------------------------------------
 
 is_bash() {
     [ -n "$BASH" ]
 }
 
 is_interactive_shell() {
-    [ "${-#*i}" != "$-" ]
+    case "$-" in
+        *i*)    return 0 ;;
+        *)      return 1 ;;
+    esac
 }
 
 is_login_shell() {
