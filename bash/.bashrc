@@ -1,6 +1,12 @@
 # -*- mode: shell-script; sh-shell: bash; coding: utf-8; -*-
 
-# If not running interactively, don't do anything.
+# beorg
+beorg="$HOME/Dropbox/org"
+
+# GnuPG
+gpgid="0xA5C2FE4660CF2A3D"
+
+# If not running interactively, stop here.
 [ -z "$PS1" ] && return
 
 # gpg ----------------------------------------------------------------
@@ -174,12 +180,6 @@ fi
 if command -v pipenv >/dev/null && pipenv --version &>/dev/null; then
     eval "$(pipenv --completion)"
 fi
-
-# beorg
-beorg="$HOME/Dropbox/org"
-
-# GnuPG
-gpgid="0xA5C2FE4660CF2A3D"
 
 # lesspipe -----------------------------------------------------------
 
