@@ -176,11 +176,6 @@ if [ -n "$BASH_VERSION" ] && pyenv which virtualenvwrapper.sh &>/dev/null; then
     source "$(pyenv which virtualenvwrapper.sh)"
 fi
 
-# Pipenv - pip install pipenv
-if command -v pipenv >/dev/null && pipenv --version &>/dev/null; then
-    eval "$(pipenv --completion)"
-fi
-
 # lesspipe -----------------------------------------------------------
 
 # lesspipe: make less more friendly for non-text input files, see
